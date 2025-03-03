@@ -1,8 +1,9 @@
 {
-  "name": "y",
+  "name": "book_tracker",
   "version": "1.0.0",
   "description": "An application to help keep track of books and reviews.",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
