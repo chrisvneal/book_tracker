@@ -2,6 +2,7 @@ import express from "express";
 import pg from "pg";
 import dotenv, { parse } from "dotenv";
 import bodyParser from "body-parser";
+import axios from "axios";
 
 dotenv.config();
 
@@ -22,10 +23,31 @@ db.connect();
 app.get("/api/search", async (req, res) => {
 	const { isbn, title } = req.query;
 
-	// console.log(isbn, title);
+	let openLibraryURL = process.env.OPENLIBRARY_URL;
 
-	// Placeholder response that should eventually handle the search logic
-	res.send(`Search results for ISBN: ${isbn}, Title: ${title}`);
+	if (isbn == undefined) {
+		openLibraryURL += `?title=${encodeURIComponent(title)}`;
+	} else if (title == undefined) {
+		openLibraryURL += `?isbn=${isbn}`;
+	}
+
+	// console.log("url: " + openLibraryURL);
+
+	const result = await axios.get(openLibraryURL);
+	// const bookData = result.data;
+	const bookData = result.data.docs[0];
+
+	if (!bookData) {
+		res.send("No book found");
+		return;
+	} else {
+		const book = {
+			title: bookData.title,
+			author: bookData.author_name,
+			isbn: isbn ? isbn : null,
+		};
+		res.status(200).json(book);
+	}
 });
 
 app.listen(API_PORT, () => {
