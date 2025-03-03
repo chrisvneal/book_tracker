@@ -19,6 +19,10 @@ const db = new pg.Client({
 
 db.connect();
 
+app.get("/", (req, res) => {
+	res.send("Hello World");
+});
+
 app.listen(API_PORT, () => {
 	console.log(`Server is running on port ${API_PORT}`);
 });
