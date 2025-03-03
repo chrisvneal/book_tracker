@@ -29,6 +29,21 @@ async function getTitleISBN(title) {
 	return isbn;
 }
 
+async function storeBookInDB(book) {
+	const { title, author, isbn, cover_id, cover_url_small, cover_url_medium, cover_url_large } = book;
+
+	const query = {
+		text: "INSERT INTO books(title, author, isbn, cover_url_small, cover_url_medium, cover_url_large) VALUES($1, $2, $3, $4, $5, $6)",
+		values: [title, author, isbn, cover_url_small, cover_url_medium, cover_url_large],
+	};
+
+	try {
+		await db.query(query.text, query.values);
+	} catch (error) {
+		console.error(error);
+	}
+}
+
 app.get("/api/search", async (req, res) => {
 	const { isbn, title } = req.query;
 
@@ -52,13 +67,15 @@ app.get("/api/search", async (req, res) => {
 
 		const book = {
 			title: bookData.title,
-			author: bookData.author_name,
+			author: bookData.author_name[0],
 			isbn: isbn ? isbn : googleISBN, // updated to use googleISBN
 			cover_id: bookData.cover_i,
 			cover_url_small: `http://covers.openlibrary.org/b/id/${bookData.cover_i}-S.jpg`,
 			cover_url_medium: `http://covers.openlibrary.org/b/id/${bookData.cover_i}-M.jpg`,
 			cover_url_large: `http://covers.openlibrary.org/b/id/${bookData.cover_i}-L.jpg`,
 		};
+
+		await storeBookInDB(book);
 		res.status(200).json(book);
 	}
 });
