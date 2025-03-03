@@ -19,8 +19,11 @@ const db = new pg.Client({
 
 db.connect();
 
-app.get("/", (req, res) => {
-	res.send("Hello World");
+app.get("/search/:isbn", (req, res) => {
+	const { isbn } = req.params;
+
+	// Placeholder response that should eventually handle the search logic
+	res.send(`Search results for ISBN: ${isbn}`);
 });
 
 app.listen(API_PORT, () => {
