@@ -1,6 +1,6 @@
 import express from "express";
 import pg from "pg";
-import dotenv from "dotenv";
+import dotenv, { parse } from "dotenv";
 import bodyParser from "body-parser";
 
 dotenv.config();
@@ -19,13 +19,13 @@ const db = new pg.Client({
 
 db.connect();
 
-app.get("/api/search/:isbn", (req, res) => {
-	const { isbn } = req.params;
+app.get("/api/search", async (req, res) => {
+	const { isbn, title } = req.query;
 
-	console.log(req.params);
+	// console.log(isbn, title);
 
 	// Placeholder response that should eventually handle the search logic
-	res.send(`Search results for ISBN: ${isbn}`);
+	res.send(`Search results for ISBN: ${isbn}, Title: ${title}`);
 });
 
 app.listen(API_PORT, () => {
