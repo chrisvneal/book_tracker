@@ -75,7 +75,9 @@ app.get("/api/search", async (req, res) => {
 		return res.status(404).json({ error: "No book found" });
 	} else {
 		let googleISBN = await getTitleISBN(bookData.title);
-
+		if (!bookData.cover_i) {
+			return res.status(404).json({ error: "No book cover found" });
+		}
 		// create book object with data from OpenLibrary
 		const book = {
 			title: bookData.title,
