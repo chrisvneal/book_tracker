@@ -53,8 +53,8 @@ async function storeBookInDB(book) {
 }
 
 // Get all books from database
-app.get("/api/search", async (req, res) => {
-	const { isbn, title } = req.query;
+app.post("/api/search", async (req, res) => {
+	const { isbn, title } = req.body;
 
 	let openLibraryURL = process.env.OPENLIBRARY_URL;
 
