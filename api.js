@@ -1,6 +1,6 @@
 import express from "express";
 import pg from "pg";
-import dotenv, { parse } from "dotenv";
+import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import axios from "axios";
 
@@ -21,20 +21,26 @@ const db = new pg.Client({
 db.connect();
 
 async function getTitleISBN(title) {
-	const data = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title}#`);
+	try {
+		const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title}`);
+		if (!response.data.items || response.data.items.length === 0) return null;
 
-	const result = data.data.items[0];
-	const isbn = result.volumeInfo.industryIdentifiers[0].identifier;
+		const identifiers = response.data.items[0].volumeInfo.industryIdentifiers;
+		if (!identifiers || identifiers.length === 0) return null;
 
-	return isbn;
+		return identifiers[0].identifier;
+	} catch (error) {
+		console.error("Error fetching ISBN:", error.message);
+		return null;
+	}
 }
 
 async function storeBookInDB(book) {
-	const { title, author, isbn, cover_id, cover_url_small, cover_url_medium, cover_url_large } = book;
+	const { cover_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large } = book;
 
 	const query = {
-		text: "INSERT INTO books(title, author, isbn, cover_url_small, cover_url_medium, cover_url_large) VALUES($1, $2, $3, $4, $5, $6)",
-		values: [title, author, isbn, cover_url_small, cover_url_medium, cover_url_large],
+		text: "INSERT INTO books(book_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large) VALUES($1, $2, $3, $4, $5, $6, $7)",
+		values: [cover_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large],
 	};
 
 	try {
@@ -60,14 +66,13 @@ app.get("/api/search", async (req, res) => {
 	const bookData = result.data.docs[0];
 
 	if (!bookData) {
-		res.send("No book found");
-		return;
+		return res.status(404).json({ error: "No book found" });
 	} else {
 		let googleISBN = await getTitleISBN(bookData.title);
 
 		const book = {
 			title: bookData.title,
-			author: bookData.author_name[0],
+			author: bookData.author_name?.[0] || "Unknown",
 			isbn: isbn ? isbn : googleISBN, // updated to use googleISBN
 			cover_id: bookData.cover_i,
 			cover_url_small: `http://covers.openlibrary.org/b/id/${bookData.cover_i}-S.jpg`,
