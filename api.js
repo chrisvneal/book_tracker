@@ -20,6 +20,7 @@ const db = new pg.Client({
 
 db.connect();
 
+// Fetch ISBN based on book title
 async function getTitleISBN(title) {
 	try {
 		const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title}`);
@@ -35,6 +36,7 @@ async function getTitleISBN(title) {
 	}
 }
 
+// Store book in database
 async function storeBookInDB(book) {
 	const { cover_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large } = book;
 
@@ -50,17 +52,21 @@ async function storeBookInDB(book) {
 	}
 }
 
+// Get all books from database
 app.get("/api/search", async (req, res) => {
 	const { isbn, title } = req.query;
 
 	let openLibraryURL = process.env.OPENLIBRARY_URL;
 
+	// if isbn is not defind, the request is for title...
 	if (isbn == undefined) {
 		openLibraryURL += `?title=${encodeURIComponent(title)}`;
 	} else if (title == undefined) {
+		// ... otherwise, the request is for isbn
 		openLibraryURL += `?isbn=${isbn}`;
 	}
 
+	// Fetch book data from OpenLibrary
 	const result = await axios.get(openLibraryURL);
 
 	const bookData = result.data.docs[0];
@@ -70,6 +76,7 @@ app.get("/api/search", async (req, res) => {
 	} else {
 		let googleISBN = await getTitleISBN(bookData.title);
 
+		// create book object with data from OpenLibrary
 		const book = {
 			title: bookData.title,
 			author: bookData.author_name?.[0] || "Unknown",
@@ -80,11 +87,15 @@ app.get("/api/search", async (req, res) => {
 			cover_url_large: `http://covers.openlibrary.org/b/id/${bookData.cover_i}-L.jpg`,
 		};
 
+		// store book in database
 		await storeBookInDB(book);
+
+		// return book data to client
 		res.status(200).json(book);
 	}
 });
 
+// listen on the API_PORT for incoming requests
 app.listen(API_PORT, () => {
 	console.log(`Server is running on port ${API_PORT}`);
 });
