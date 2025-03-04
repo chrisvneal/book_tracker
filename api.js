@@ -41,7 +41,7 @@ async function storeBookInDB(book) {
 	const { cover_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large } = book;
 
 	const query = {
-		text: "INSERT INTO books(book_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large) VALUES($1, $2, $3, $4, $5, $6, $7)",
+		text: "INSERT INTO books(book_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large) VALUES($1, $2, $3, $4, $5, $6, $7) ON CONFLICT (book_id) DO NOTHING",
 		values: [cover_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large],
 	};
 
