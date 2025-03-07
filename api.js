@@ -54,47 +54,62 @@ async function storeBookInDB(book) {
 
 // Search for book by ISBN or title
 app.post("/api/search", async (req, res) => {
-	const { isbn, title } = req.body;
+	const { isbn, title, limit } = req.body;
 
 	let openLibraryURL = process.env.OPENLIBRARY_URL;
 
-	// if isbn is not defind, the request is for title...
+	const numOfBooks = limit || 4;
+	const bookLimit = `&limit=${numOfBooks}`;
+
+	// if isbn is not defined, the request is for title...
 	if (isbn == undefined) {
-		openLibraryURL += `?title=${encodeURIComponent(title)}`;
+		openLibraryURL += `?q=${encodeURIComponent(title)}${bookLimit}`;
 	} else if (title == undefined) {
 		// ... otherwise, the request is for isbn
-		openLibraryURL += `?isbn=${isbn}`;
+		openLibraryURL += `?isbn=${isbn}${bookLimit}`;
 	}
 
-	// Fetch book data from OpenLibrary
+	// Fetch book data from OpenLibrary and parse it
 	const result = await axios.get(openLibraryURL);
+	const bookData = result.data.docs;
 
-	const bookData = result.data.docs[0];
+	// Initialize array to store book data
+	let books = [];
 
-	if (!bookData) {
-		return res.status(404).json({ error: "No book found" });
-	} else {
-		let googleISBN = await getTitleISBN(bookData.title);
-		if (!bookData.cover_i) {
-			return res.status(404).json({ error: "No book cover found" });
+	// Loop through book data, insert into books array
+	for (let i = 0; i < bookData.length; i++) {
+		if (!bookData[i]) {
+			continue;
 		}
+
+		// Get ISBN from Google Books API by title
+		const googleISBN = (await getTitleISBN(bookData[i].title)) || "Unknown ISBN";
+
+		if (!bookData[i].cover_i) {
+			console.warn(`⚠️ Book "${bookData[i].title}" has no cover image. It will be included with 'null' cover URLs.`);
+		}
+
 		// create book object with data from OpenLibrary
 		const book = {
-			title: bookData.title,
-			author: bookData.author_name?.[0] || "Unknown",
-			isbn: isbn ? isbn : googleISBN, // updated to use googleISBN
-			cover_id: bookData.cover_i,
-			cover_url_small: `http://covers.openlibrary.org/b/id/${bookData.cover_i}-S.jpg`,
-			cover_url_medium: `http://covers.openlibrary.org/b/id/${bookData.cover_i}-M.jpg`,
-			cover_url_large: `http://covers.openlibrary.org/b/id/${bookData.cover_i}-L.jpg`,
+			title: bookData[i].title,
+			author: bookData[i].author_name?.[0] || "Unknown",
+			isbn: isbn || googleISBN,
+			cover_id: bookData[i].cover_i,
+			cover_url_small: `http://covers.openlibrary.org/b/id/${bookData[i].cover_i}-S.jpg`,
+			cover_url_medium: `http://covers.openlibrary.org/b/id/${bookData[i].cover_i}-M.jpg`,
+			cover_url_large: `http://covers.openlibrary.org/b/id/${bookData[i].cover_i}-L.jpg`,
 		};
 
-		// store book in database
-		await storeBookInDB(book);
+		books.push(book);
 
-		// return book data to client
-		res.status(200).json(book);
+		// await storeBookInDB(book);
 	}
+
+	books.forEach((book) => console.log(book.author));
+
+	// Return book data to client
+	// console.log(books[0].author_name);
+	res.status(200).json(books);
 });
 
 // listen on the API_PORT for incoming requests
