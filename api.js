@@ -52,7 +52,7 @@ async function storeBookInDB(book) {
 	}
 }
 
-// Get all books from database
+// Search for book by ISBN or title
 app.post("/api/search", async (req, res) => {
 	const { isbn, title } = req.body;
 
