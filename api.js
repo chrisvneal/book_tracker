@@ -75,6 +75,7 @@ app.post("/api/search", async (req, res) => {
 
 	// Initialize array to store book data
 	let books = [];
+	let bookTitles = [];
 
 	// Loop through book data, insert into books array
 	for (let i = 0; i < bookData.length; i++) {
@@ -95,20 +96,29 @@ app.post("/api/search", async (req, res) => {
 			author: bookData[i].author_name?.[0] || "Unknown",
 			isbn: isbn || googleISBN,
 			cover_id: bookData[i].cover_i,
-			cover_url_small: `http://covers.openlibrary.org/b/id/${bookData[i].cover_i}-S.jpg`,
-			cover_url_medium: `http://covers.openlibrary.org/b/id/${bookData[i].cover_i}-M.jpg`,
-			cover_url_large: `http://covers.openlibrary.org/b/id/${bookData[i].cover_i}-L.jpg`,
+			cover_url_small: bookData[i].cover_i ? `http://covers.openlibrary.org/b/id/${bookData[i].cover_i}-S.jpg` : null,
+			cover_url_medium: bookData[i].cover_i ? `http://covers.openlibrary.org/b/id/${bookData[i].cover_i}-M.jpg` : null,
+			cover_url_large: bookData[i].cover_i ? `http://covers.openlibrary.org/b/id/${bookData[i].cover_i}-L.jpg` : null,
 		};
 
 		books.push(book);
+		bookTitles.push(book.title);
 
 		// await storeBookInDB(book);
 	}
 
-	books.forEach((book) => console.log(book.author));
-
 	// Return book data to client
 	// console.log(books[0].author_name);
+	console.log("");
+	console.log(`The API returned ${books.length} books for ${isbn ? `ISBN: ${isbn}` : `title: ${title}`}.`);
+	console.log("=====================================");
+	bookTitles.forEach((title) => console.log(title));
+	const booksWithoutImages = books.filter((book) => !book.cover_id);
+	if (booksWithoutImages.length > 0) {
+		console.warn(`⚠️ There are ${booksWithoutImages.length} books without cover images.`);
+		booksWithoutImages.forEach((book) => console.warn(`- ${book.title} by ${book.author}`));
+	}
+
 	res.status(200).json(books);
 });
 
