@@ -107,20 +107,7 @@ app.post("/api/search", async (req, res) => {
 		// await storeBookInDB(book);
 	}
 
-	// Return book data to client
-	// console.log(books[0].author_name);
-	console.log("");
-	console.log(`The API returned ${books.length} books for ${isbn ? `ISBN: ${isbn}` : `title: ${title}`}.`);
-	console.log("=====================================");
-	bookTitles.forEach((title) => console.log(title));
-	const booksWithoutImages = books.filter((book) => !book.cover_id);
-	if (booksWithoutImages.length > 0) {
-		console.warn(`⚠️ There are ${booksWithoutImages.length} books without cover images.`);
-		booksWithoutImages.forEach((book) => console.warn(`- ${book.title} by ${book.author}`));
-	}
-
 	res.status(200).json(books);
-	res.render("index.ejs", { books });
 });
 
 // listen on the API_PORT for incoming requests
