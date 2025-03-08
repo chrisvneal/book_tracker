@@ -17,7 +17,10 @@ app.get("/", (req, res) => {
 
 app.post("/search", async (req, res) => {
 	const query = req.body.query;
-	const isISBN = /^\d+$/.test(query);
+
+	// Check if the query is an ISBN
+	const isISBN = (/^[\d-]+$/.test(query) && query.replace(/-/g, "").length === 10) || query.replace(/-/g, "").length === 13;
+
 	const API_URL = process.env.API_URL || "http://localhost:4000";
 
 	try {
