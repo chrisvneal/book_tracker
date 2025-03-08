@@ -75,7 +75,6 @@ app.post("/api/search", async (req, res) => {
 
 	// Initialize array to store book data
 	let books = [];
-	let bookTitles = [];
 
 	// Loop through book data, insert into books array
 	for (let i = 0; i < bookData.length; i++) {
@@ -87,7 +86,7 @@ app.post("/api/search", async (req, res) => {
 		const googleISBN = (await getTitleISBN(bookData[i].title)) || "Unknown ISBN";
 
 		if (!bookData[i].cover_i) {
-			console.warn(`⚠️ Book "${bookData[i].title}" has no cover image. It will be included with 'null' cover URLs.`);
+			continue;
 		}
 
 		// create book object with data from OpenLibrary
@@ -102,7 +101,6 @@ app.post("/api/search", async (req, res) => {
 		};
 
 		books.push(book);
-		bookTitles.push(book.title);
 
 		// await storeBookInDB(book);
 	}

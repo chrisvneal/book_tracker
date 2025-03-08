@@ -25,12 +25,10 @@ app.post("/search", async (req, res) => {
 
 	try {
 		const results = await axios.post(`${API_URL}/api/search`, isISBN ? { isbn: query } : { query });
-		console.log(`${API_URL}/api/search`);
-		// console.log(results.data);
-		res.render("index.ejs", { books: results.data });
+
+		res.status(200).render("index.ejs", { books: results.data });
 	} catch (error) {
-		console.error("Error searching for book:", error.message);
-		res.render("index.ejs", { books: [] }); // Render an empty array on error
+		res.status(500).render("index.ejs", { books: [], error: "An error occurred while searching for the book." });
 	}
 });
 

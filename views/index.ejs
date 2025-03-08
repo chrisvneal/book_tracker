@@ -37,7 +37,12 @@
                             ISBN: <%= book.isbn || "ISBN not available." %>
                         </p>
                     </li>
-                    <% })} %>
+                    <% }) %>
+                        <% } else if (locals.error) { %>
+                            <p>
+                                <%= error %>
+                            </p>
+                            <% } %>
             </ul>
     </div>
 
