@@ -15,7 +15,7 @@
     </form>
 
     <div class="search-results">
-        <% if (books.length) { %>
+        <% if (locals.books && locals.books.length) { %>
             <h2>Results</h2>
             <ul>
                 <% books.forEach(book=> { %>
