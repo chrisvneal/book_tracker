@@ -54,10 +54,10 @@ async function storeBookInDB(book) {
 
 // Search for book by ISBN or title
 app.post("/api/search", async (req, res) => {
-	const { isbn, title, limit } = req.body;
+	const { isbn, query, limit } = req.body;
 
 	let openLibraryURL = process.env.OPENLIBRARY_URL;
-
+	let title = query;
 	const numOfBooks = limit || 4;
 	const bookLimit = `&limit=${numOfBooks}`;
 
