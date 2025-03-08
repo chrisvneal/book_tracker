@@ -120,6 +120,7 @@ app.post("/api/search", async (req, res) => {
 	}
 
 	res.status(200).json(books);
+	res.redirect("/");
 });
 
 // listen on the API_PORT for incoming requests
