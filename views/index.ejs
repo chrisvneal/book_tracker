@@ -17,22 +17,24 @@
     <div class="search-results">
         <% if (locals.books && locals.books.length) { %>
             <h2>Results</h2>
-            <ul>
+            <ul class="book-results">
                 <% books.forEach(book=> { %>
                     <li class="book">
                         <img src="<%= book.cover_url_small %>" alt="<%= book.title %>">
-                        <h3>
-                            <%= book.title %>
-                        </h3>
-                        <p>
-                            Author: <%= book.author %>
-                        </p>
-                        <p>
-                            Published: <%= book.published_date %>
-                        </p>
-                        <p>
-                            ISBN: <%= book.isbn || "ISBN not available." %>
-                        </p>
+                        <div class="book-info">
+                            <h3>
+                                <%= book.title %>
+                            </h3>
+                            <p>
+                                Author: <%= book.author %>
+                            </p>
+                            <p>
+                                Published: <%= book.published_date %>
+                            </p>
+                            <p>
+                                ISBN: <%= book.isbn || "ISBN not available." %>
+                            </p>
+                        </div>
                     </li>
                     <% }) %>
                         <% } else if (locals.error) { %>
