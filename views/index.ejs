@@ -10,7 +10,7 @@
 
 <body>
     <form action="/search" method="post">
-        <input type="text" name="query" placeholder="Search for a book by Title or ISBN...">
+        <input type="text" name="query" placeholder="Search by Title or ISBN...">
         <button type="submit">Search</button>
     </form>
 
@@ -26,6 +26,9 @@
                         </h3>
                         <p>
                             Author: <%= book.author %>
+                        </p>
+                        <p>
+                            Published: <%= book.publishedDate || "Published date not available." %>
                         </p>
                         <p>
                             ISBN: <%= book.isbn || "ISBN not available." %>

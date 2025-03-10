@@ -38,11 +38,11 @@ async function getTitleISBN(title) {
 
 // Store book in database
 async function storeBookInDB(book) {
-	const { cover_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large } = book;
+	const { cover_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large, published_date } = book;
 
 	const query = {
-		text: "INSERT INTO books(book_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large) VALUES($1, $2, $3, $4, $5, $6, $7) ON CONFLICT (book_id) DO NOTHING",
-		values: [cover_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large],
+		text: "INSERT INTO books(book_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large, published_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (book_id) DO NOTHING",
+		values: [cover_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large, published_date],
 	};
 
 	try {
@@ -90,14 +90,17 @@ app.post("/api/search", async (req, res) => {
 		}
 
 		// create book object with data from OpenLibrary
+		const { title, author_name, first_publish_year, cover_i } = bookData[i];
+
 		const book = {
-			title: bookData[i].title,
-			author: bookData[i].author_name?.[0] || "Unknown",
+			title: title,
+			author: author_name?.[0] || "Unknown",
 			isbn: isbn || googleISBN,
-			cover_id: bookData[i].cover_i,
-			cover_url_small: bookData[i].cover_i ? `http://covers.openlibrary.org/b/id/${bookData[i].cover_i}-S.jpg` : null,
-			cover_url_medium: bookData[i].cover_i ? `http://covers.openlibrary.org/b/id/${bookData[i].cover_i}-M.jpg` : null,
-			cover_url_large: bookData[i].cover_i ? `http://covers.openlibrary.org/b/id/${bookData[i].cover_i}-L.jpg` : null,
+			published_date: first_publish_year || "Unknown",
+			cover_id: cover_i,
+			cover_url_small: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-S.jpg` : null,
+			cover_url_medium: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-M.jpg` : null,
+			cover_url_large: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-L.jpg` : null,
 		};
 
 		books.push(book);
