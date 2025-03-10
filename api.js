@@ -82,9 +82,9 @@ app.post("/api/search", async (req, res) => {
 			isbn: "978-1234567890",
 			published_date: "2022",
 			cover_id: 101,
-			cover_url_small: "https://via.placeholder.com/50x75",
-			cover_url_medium: "https://via.placeholder.com/100x150",
-			cover_url_large: "https://via.placeholder.com/200x300",
+			cover_url_small: "https://placehold.co/50x75",
+			cover_url_medium: "https://placehold.co/150x150",
+			cover_url_large: "https://placehold.co/200x300",
 		},
 		{
 			title: "Deep Learning for Humans",
@@ -92,9 +92,9 @@ app.post("/api/search", async (req, res) => {
 			isbn: "978-9876543210",
 			published_date: "2020",
 			cover_id: 102,
-			cover_url_small: "https://via.placeholder.com/50x75",
-			cover_url_medium: "https://via.placeholder.com/100x150",
-			cover_url_large: "https://via.placeholder.com/200x300",
+			cover_url_small: "https://placehold.co/50x75",
+			cover_url_medium: "https://placehold.co/150x150",
+			cover_url_large: "https://placehold.co/200x300",
 		},
 		{
 			title: "The Hidden Algorithms",
@@ -102,9 +102,9 @@ app.post("/api/search", async (req, res) => {
 			isbn: "978-1928374650",
 			published_date: "1952",
 			cover_id: 103,
-			cover_url_small: "https://via.placeholder.com/50x75",
-			cover_url_medium: "https://via.placeholder.com/100x150",
-			cover_url_large: "https://via.placeholder.com/200x300",
+			cover_url_small: "https://placehold.co/50x75",
+			cover_url_medium: "https://placehold.co/150x150",
+			cover_url_large: "https://placehold.co/200x300",
 		},
 	];
 
