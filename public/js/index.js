@@ -4,11 +4,12 @@ function populateReviewHeader(book) {
 	document.querySelector(".review-book-image img").setAttribute("src", book.querySelector("img").getAttribute("src"));
 }
 
-let query;
+let hiddenInput = document.querySelector("#searched");
 
 document.querySelector("#search-form").addEventListener("input", () => {
 	query = document.querySelector("#query").value;
-	console.log(query);
+	document.querySelector("#searched").value = query;
+	console.log(hiddenInput);
 });
 
 document.querySelector(".book-search-results").addEventListener("click", function (e) {
