@@ -10,7 +10,7 @@
 
 <body>
     <div class="container">
-        <form action="/search" method="post">
+        <form class="search-form" action="/search" method="post">
             <input type="text" name="query" placeholder="Search by Title or ISBN...">
             <button type="submit">Search</button>
         </form>
@@ -44,6 +44,16 @@
                                 <% } %>
                 </ul>
         </div>
+
+        <form class="review-section" class="hidden" action="/submit-review" method="post">
+            <h2>Review book</h2>
+            <h3 class="review-book-title"></h3>
+            <p class="review-book-author"></p>
+
+
+            <textarea class="review-text" name="review" placeholder="Write your review..."></textarea>
+            <button type="submit" class="submit-review">Submit Review</button>
+        </form>
     </div>
 
 
