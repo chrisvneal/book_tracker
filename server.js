@@ -33,6 +33,11 @@ app.post("/search", async (req, res) => {
 	}
 });
 
+app.post("/submit-review", (req, res) => {
+	// res.sendStatus(400).json({ error: "Book not found" });
+	res.redirect("/");
+});
+
 app.listen(MAIN_PORT, () => {
 	console.log(`Server is running on port ${MAIN_PORT}`);
 });
