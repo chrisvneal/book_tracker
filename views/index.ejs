@@ -45,18 +45,20 @@
                 </ul>
         </div>
 
-        <form id="review-section" class="hidden" action="/submit-review" method="post">
-            <h2>Review book</h2>
-            <h3 class="review-book-title"></h3>
-            <p class="review-book-author"></p>
+        <div id="review-section">
+            <form class="review-form hidden" action="/submit-review" method="post">
+                <h2>Review book</h2>
+                <h3 class="review-book-title"></h3>
+                <p class="review-book-author"></p>
 
 
-            <textarea class="review-text" name="review" placeholder="Write your review..."></textarea>
-            <button type="submit" class="submit-review">Submit Review</button>
-        </form>
+                <textarea class="review-text" name="review" placeholder="Write your review..."></textarea>
+                <button type="submit" class="submit-review">Submit Review</button>
+            </form>
+        </div>
     </div>
 
-
+    <script src="js/index.js"></script>
 
 </body>
 
