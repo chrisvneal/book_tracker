@@ -55,10 +55,11 @@ ul {
 }
 
 .container {
-  margin: 10px;
+  width: 85%;
+  margin: 0 auto;
+  padding-top: 2em;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  outline: 1px dashed red;
   column-gap: 1.5em;
 }
 
@@ -71,10 +72,8 @@ ul {
 }
 
 .book {
-  outline: 1px dashed blue;
   display: flex;
-  margin-bottom: 1em;
-  padding: 10px;
+  padding: 10px 10px 20px;
 }
 .book-image {
   margin-right: 1.5em;
@@ -85,8 +84,7 @@ ul {
 }
 
 .review-section {
-  grid-column: 5/7;
-  outline: 1px dashed blue;
+  grid-column: 4/7;
 }
 
 .hidden {

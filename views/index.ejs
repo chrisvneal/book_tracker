@@ -14,11 +14,13 @@
             <input type="text" name="query" placeholder="Search by Title or ISBN...">
             <button type="submit">Search</button>
         </form>
+
         <div class="book-search-results">
             <% if (locals.books && locals.books.length) { %>
                 <h2>Results</h2>
                 <ul>
                     <% books.forEach(book=> { %>
+                        </li>
                         <li class="book">
                             <img class="book-image" src="<%= book.cover_url_small %>" alt="<%= book.title %>">
                             <div class="book-info">
@@ -49,7 +51,7 @@
 
         <div class="review-section">
             <form class="review-form hidden" action="/submit-review" method="post">
-                <h2>Review book</h2>
+                <h2>Review</h2>
                 <h3 class="review-book-title"></h3>
                 <p class="review-book-author"></p>
 
@@ -58,6 +60,9 @@
                 <button type="submit" class="submit-review">Submit Review</button>
             </form>
         </div>
+
+
+
     </div>
 
     <script src="js/index.js"></script>
