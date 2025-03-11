@@ -12,6 +12,11 @@ document.querySelector(".book-search-results").addEventListener("click", functio
 
 	let reviewForm = document.querySelector(".review-form");
 
+	document.querySelectorAll(".book").forEach(function (bookItem) {
+		bookItem.classList.remove("selected");
+	});
+	book.classList.add("selected");
+
 	populateReviewHeader(book);
 
 	if (reviewForm.classList.contains("hidden")) {
