@@ -50,6 +50,10 @@ select {
   font: inherit;
 }
 
+body {
+  font-family: Inter, sans-serif;
+}
+
 ul {
   list-style-type: none;
 }
