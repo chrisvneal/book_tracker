@@ -4,6 +4,13 @@ function populateReviewHeader(book) {
 	document.querySelector(".review-book-image img").setAttribute("src", book.querySelector("img").getAttribute("src"));
 }
 
+let query;
+
+document.querySelector("#search-form").addEventListener("input", () => {
+	query = document.querySelector("#query").value;
+	console.log(query);
+});
+
 document.querySelector(".book-search-results").addEventListener("click", function (e) {
 	let book = e.target.closest(".book"); // Find the closest book item
 	if (!book) return; // Stop if clicked outside book items
