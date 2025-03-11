@@ -54,12 +54,21 @@ ul {
   list-style-type: none;
 }
 
-.book {
-  outline: 1px dashed blue;
+.book-search-results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .book {
+  outline: 1px dashed blue;
   display: flex;
+  margin-bottom: 1em;
+  padding: 10px;
+}
+.book-image {
+  margin-right: 1.5em;
 }
 
 /*# sourceMappingURL=styles.css.map */

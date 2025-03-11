@@ -14,13 +14,13 @@
         <button type="submit">Search</button>
     </form>
 
-    <div class="search-results">
+    <div class="book-search-results">
         <% if (locals.books && locals.books.length) { %>
             <h2>Results</h2>
-            <ul class="book-results">
+            <ul>
                 <% books.forEach(book=> { %>
                     <li class="book">
-                        <img src="<%= book.cover_url_small %>" alt="<%= book.title %>">
+                        <img class="book-image" src="<%= book.cover_url_small %>" alt="<%= book.title %>">
                         <div class="book-info">
                             <h3>
                                 <%= book.title %>

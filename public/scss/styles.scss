@@ -4,10 +4,21 @@
 ul {
     list-style-type: none;
 }
+
+.book-search-results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-direction: column;
+}
 .book {
     outline: 1px dashed blue;
+    display: flex;
+    margin-bottom: 1em;
+    padding: 10px;
+
+    &-image {
+        margin-right: 1.5em
+    }
 }
 
-.book {
-    display: flex;
-}
