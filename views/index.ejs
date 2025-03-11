@@ -9,40 +9,41 @@
 </head>
 
 <body>
-    <form action="/search" method="post">
-        <input type="text" name="query" placeholder="Search by Title or ISBN...">
-        <button type="submit">Search</button>
-    </form>
-
-    <div class="book-search-results">
-        <% if (locals.books && locals.books.length) { %>
-            <h2>Results</h2>
-            <ul>
-                <% books.forEach(book=> { %>
-                    <li class="book">
-                        <img class="book-image" src="<%= book.cover_url_small %>" alt="<%= book.title %>">
-                        <div class="book-info">
-                            <h3>
-                                <%= book.title %>
-                            </h3>
-                            <p>
-                                Author: <%= book.author %>
-                            </p>
-                            <p>
-                                Published: <%= book.published_date %>
-                            </p>
-                            <p>
-                                ISBN: <%= book.isbn || "ISBN not available." %>
-                            </p>
-                        </div>
-                    </li>
-                    <% }) %>
-                        <% } else if (locals.error) { %>
-                            <p>
-                                <%= error %>
-                            </p>
-                            <% } %>
-            </ul>
+    <div class="container">
+        <form action="/search" method="post">
+            <input type="text" name="query" placeholder="Search by Title or ISBN...">
+            <button type="submit">Search</button>
+        </form>
+        <div class="book-search-results">
+            <% if (locals.books && locals.books.length) { %>
+                <h2>Results</h2>
+                <ul>
+                    <% books.forEach(book=> { %>
+                        <li class="book">
+                            <img class="book-image" src="<%= book.cover_url_small %>" alt="<%= book.title %>">
+                            <div class="book-info">
+                                <h3>
+                                    <%= book.title %>
+                                </h3>
+                                <p>
+                                    Author: <%= book.author %>
+                                </p>
+                                <p>
+                                    Published: <%= book.published_date %>
+                                </p>
+                                <p>
+                                    ISBN: <%= book.isbn || "ISBN not available." %>
+                                </p>
+                            </div>
+                        </li>
+                        <% }) %>
+                            <% } else if (locals.error) { %>
+                                <p>
+                                    <%= error %>
+                                </p>
+                                <% } %>
+                </ul>
+        </div>
     </div>
 
 
