@@ -25,3 +25,6 @@ Thumbs.db
 
 # Coverage reports
 coverage/
+
+# auto generated SCSS
+public/css/styles.css.map
