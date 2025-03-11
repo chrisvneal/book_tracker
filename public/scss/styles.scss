@@ -42,6 +42,15 @@ ul {
     grid-column: 4  / 7;
     // outline: 1px dashed blue;
 
+    & .review-book-image {
+width: 220px;
+// outline: 1px solid saddlebrown;
+
+img {
+    width: 100%;
+}
+    }
+
 }
 
 

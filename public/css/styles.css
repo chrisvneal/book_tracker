@@ -87,6 +87,12 @@ ul {
 .review-section {
   grid-column: 4/7;
 }
+.review-section .review-book-image {
+  width: 220px;
+}
+.review-section .review-book-image img {
+  width: 100%;
+}
 
 .hidden {
   visibility: hidden;
