@@ -13,14 +13,19 @@ ul {
     grid-template-columns: repeat(6, 1fr);
     // outline: 1px dashed red;
     column-gap: 1.5em;
+    grid-template-rows: auto auto;
+    grid-auto-rows: auto;
 }
 
 .book-search-results {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    flex-direction: column;
     grid-column: 1 / 4;
+
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        flex-direction: column;
+    }
 }
 .book {
     // outline: 1px dashed blue;
@@ -40,14 +45,18 @@ ul {
 
 .review-section {
     grid-column: 4  / 7;
+    grid-row: 2;
     // outline: 1px dashed blue;
 
-    & .review-book-image {
+    .review-book-image {
 width: 220px;
+height: 200px;
+overflow: hidden;
 // outline: 1px solid saddlebrown;
 
 img {
     width: 100%;
+    height: auto;
 }
     }
 
@@ -57,5 +66,11 @@ img {
 
 .hidden {
     visibility: hidden;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
 }
 
