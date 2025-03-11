@@ -6,11 +6,17 @@ function populateReviewHeader(book) {
 
 let hiddenInput = document.querySelector("#searched");
 
-document.querySelector("#search-form").addEventListener("input", () => {
-	query = document.querySelector("#query").value;
-	document.querySelector("#searched").value = query;
-	console.log(hiddenInput);
-});
+let form = document.querySelector("#search-form");
+
+// form.addEventListener("input", () => {
+// 	query = document.querySelector("#query").value;
+// 	document.querySelector("#searched").value = query;
+// 	// console.log(hiddenInput);
+// });
+
+// form.addEventListener("submit", () => {
+// 	console.log("submitted");
+// });
 
 document.querySelector(".book-search-results").addEventListener("click", function (e) {
 	let book = e.target.closest(".book"); // Find the closest book item

@@ -10,6 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const MAIN_PORT = process.env.MAIN_PORT || 3000;
+const API_URL = process.env.API_URL;
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
@@ -17,7 +18,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/search", async (req, res) => {
-	const query = req.body.query;
+	// const query = req.body.query;
+	const { query, profile_id } = req.body;
+	// console.log(query, profile_id);
 
 	// Check if the query is an ISBN
 	const isISBN = (/^[\d-]+$/.test(query) && query.replace(/-/g, "").length === 10) || query.replace(/-/g, "").length === 13;
