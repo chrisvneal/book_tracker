@@ -1,17 +1,82 @@
-/* Error: no such file or directory
- *   ,
- * 1 | @import 'reset';
- *   |         ^^^^^^^
- *   '
- *   public\scss\styles.scss 1:9  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: no such file or directory\a   \2577 \a 1 \2502  @import 'reset';\d\a   \2502          ^^^^^^^\a   \2575 \a   public\\scss\\styles.scss 1:9  root stylesheet";
+/* reset.scss */
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
+
+/* Remove default margin */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role=list],
+ol[role=list] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.container {
+  margin: 10px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  outline: 1px dashed red;
+}
+
+.book-search-results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-direction: column;
+  grid-column: 1/4;
+}
+
+.book {
+  outline: 1px dashed blue;
+  display: flex;
+  margin-bottom: 1em;
+  padding: 10px;
+}
+.book-image {
+  margin-right: 1.5em;
+}
+
+/*# sourceMappingURL=styles.css.map */
