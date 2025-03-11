@@ -84,9 +84,13 @@ ul {
   grid-column: 1/3;
 }
 
-#review-section {
+.review-section {
   grid-column: 5/7;
   outline: 1px dashed blue;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 /*# sourceMappingURL=styles.css.map */

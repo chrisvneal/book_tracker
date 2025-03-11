@@ -5,4 +5,8 @@ document.querySelector(".book-search-results").addEventListener("click", functio
 	console.log("Book item clicked:", book);
 
 	let reviewForm = document.querySelector(".review-form");
+
+	if (reviewForm.classList.contains("hidden")) {
+		reviewForm.classList.remove("hidden");
+	}
 });
