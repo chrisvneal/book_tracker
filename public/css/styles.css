@@ -88,4 +88,8 @@ ul {
   grid-column: 5/7;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 /*# sourceMappingURL=styles.css.map */
