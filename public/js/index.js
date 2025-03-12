@@ -2,6 +2,7 @@ function populateReviewHeader(book) {
 	document.querySelector(".review-book-title").textContent = book.querySelector("h3").textContent;
 	document.querySelector(".review-book-author").textContent = book.querySelector(".book-author").textContent;
 	document.querySelector(".review-book-image img").setAttribute("src", book.querySelector("img").getAttribute("src"));
+	document.querySelector(".review-book").setAttribute("data-id", book.closest(".book").getAttribute("data-id"));
 }
 
 let hiddenInput = document.querySelector("#searched");
