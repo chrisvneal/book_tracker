@@ -41,6 +41,10 @@ app.post("/search", async (req, res) => {
 
 app.post("/reviews", (req, res) => {
 	// res.sendStatus(400).json({ error: "Book not found" });
+
+	// save book to database if it isnt there, "books" table
+
+	// saved review to database, "reviews" table
 	res.redirect("/");
 });
 
