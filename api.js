@@ -120,6 +120,10 @@ app.post("/api/search-history", async (req, res) => {
 	await db.query(query.text, query.values);
 });
 
+app.post("/api/submit-review", (req, res) => {
+	res.redirect("/");
+});
+
 // listen on the API_PORT for incoming requests
 app.listen(API_PORT, () => {
 	console.log(`Server is running on port ${API_PORT}`);

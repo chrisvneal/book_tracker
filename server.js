@@ -39,7 +39,7 @@ app.post("/search", async (req, res) => {
 	}
 });
 
-app.post("/submit-review", (req, res) => {
+app.post("/reviews", (req, res) => {
 	// res.sendStatus(400).json({ error: "Book not found" });
 	res.redirect("/");
 });
