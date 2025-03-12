@@ -2,7 +2,7 @@ function populateReviewHeader(book) {
 	document.querySelector(".review-book-title").textContent = book.querySelector("h3").textContent;
 	document.querySelector(".review-book-author").textContent = book.querySelector(".book-author").textContent;
 	document.querySelector(".review-book-image img").setAttribute("src", book.querySelector("img").getAttribute("src"));
-	document.querySelector(".review-book").setAttribute("data-id", book.closest(".book").getAttribute("data-id"));
+	// document.querySelector(".review-book").setAttribute("data-id", book.closest(".book").getAttribute("data-id"));
 }
 
 let hiddenInput = document.querySelector("#searched");
@@ -25,7 +25,7 @@ document.querySelector(".book-search-results").addEventListener("click", functio
 
 	// console.log("Book item clicked:", book);
 
-	let reviewForm = document.querySelector(".review-form");
+	let reviewSection = document.querySelector(".review-section");
 
 	document.querySelectorAll(".book").forEach(function (bookItem) {
 		bookItem.classList.remove("selected");
@@ -34,7 +34,12 @@ document.querySelector(".book-search-results").addEventListener("click", functio
 
 	populateReviewHeader(book);
 
-	if (reviewForm.classList.contains("hidden")) {
-		reviewForm.classList.remove("hidden");
+	if (!reviewSection) {
+		console.error("Review section not found in the DOM.");
+		return;
+	} else {
+		if (reviewSection.classList.contains("hidden")) {
+			reviewSection.classList.remove("hidden");
+		}
 	}
 });

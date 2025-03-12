@@ -36,23 +36,23 @@ async function getTitleISBN(title) {
 	}
 }
 
-// Store book in database
-async function storeBookInDB(book) {
-	const { cover_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large, published_date } = book;
+// async function storeBookInDB(book) {
+// 	const { cover_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large, published_date } = book;
 
-	const query = {
-		text: "INSERT INTO books(book_id, isbn, title, author, cover_url_small, cover_url_medium, cover_url_large, published_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (book_id) DO NOTHING",
-		values: [cover_id, isbn, title, author, cover_url_small, cover_url_medium, cover_url_large, published_date],
-	};
+// 	const query = {
+// 		text: "INSERT INTO books(book_id, isbn, title, author, cover_url_small, cover_url_medium, cover_url_large, published_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (book_id) DO NOTHING",
+// 		values: [cover_id, isbn, title, author, cover_url_small, cover_url_medium, cover_url_large, published_date],
+// 	};
 
-	try {
-		await db.query(query.text, query.values);
-	} catch (error) {
-		console.error(error);
-	}
-}
+// 	try {
+// 		await db.query(query.text, query.values);
+// 	} catch (error) {
+// 		console.error(error);
+// 	}
+// }
 
 // Search for book by ISBN or title
+
 app.post("/api/search", async (req, res) => {
 	const { isbn, query, limit } = req.body;
 
@@ -73,25 +73,24 @@ app.post("/api/search", async (req, res) => {
 	const result = await axios.get(openLibraryURL);
 	const bookData = result.data.docs;
 
-	// Initialize array to store book data
-	let books = [];
+	// Initialize array to store search results from API
+	let searchResults = [];
 
-	// Loop through book data, insert into books array
+	// Loop through results, insert into books array
 	for (let i = 0; i < bookData.length; i++) {
 		if (!bookData[i]) {
 			continue;
 		}
 
-		// 	// Get ISBN from Google Books API by title
+		// Get ISBN from Google Books API by title
 		const googleISBN = (await getTitleISBN(bookData[i].title)) || "Unknown ISBN";
 
 		if (!bookData[i].cover_i) {
 			continue;
 		}
 
-		// 	// create book object with data from OpenLibrary
+		// create new object from OpenLibrary API data
 		const { title, author_name, first_publish_year, cover_i } = bookData[i];
-
 		const book = {
 			title: title,
 			author: author_name?.[0] || "Unknown",
@@ -103,12 +102,14 @@ app.post("/api/search", async (req, res) => {
 			cover_url_large: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-L.jpg` : null,
 		};
 
-		books.push(book);
+		// store each book/result in searchResults array
+		searchResults.push(book);
 
-		await storeBookInDB(book);
+		// await storeBookInDB(book);
 	}
 
-	res.status(200).json(books);
+	// send search results as JSON to server
+	res.status(200).json(searchResults);
 });
 
 app.post("/api/search-history", async (req, res) => {

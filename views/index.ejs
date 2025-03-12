@@ -16,7 +16,7 @@
 <body>
     <div class="container">
         <form id="search-form" class="search-form" action="/search" method="post">
-            <input id="query" type="text" name="query" placeholder="Search by Title or ISBN...">
+            <input id="query" type="text" name="query" placeholder="Search by Title or ISBN..." required>
             <input type="hidden" id="profile_id" value="1" name="profile_id">
             <button type="submit">Search</button>
         </form>
@@ -55,8 +55,8 @@
                 </ul>
         </div>
 
-        <div class="review-section">
-            <form class="review-form hidden" action="/submit-review" method="post">
+        <div class="review-section hidden">
+            <form class="review-form" action="/submit-review" method="post">
                 <h2>Write a review</h2>
                 <div class="review-book-image">
                     <img src="" alt="">
