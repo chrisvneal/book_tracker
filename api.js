@@ -41,8 +41,8 @@ async function storeBookInDB(book) {
 	const { cover_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large, published_date } = book;
 
 	const query = {
-		text: "INSERT INTO books(book_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large, published_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (book_id) DO NOTHING",
-		values: [cover_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large, published_date],
+		text: "INSERT INTO books(book_id, isbn, title, author, cover_url_small, cover_url_medium, cover_url_large, published_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (book_id) DO NOTHING",
+		values: [cover_id, isbn, title, author, cover_url_small, cover_url_medium, cover_url_large, published_date],
 	};
 
 	try {
@@ -105,7 +105,7 @@ app.post("/api/search", async (req, res) => {
 
 		books.push(book);
 
-		// await storeBookInDB(book);
+		await storeBookInDB(book);
 	}
 
 	res.status(200).json(books);
