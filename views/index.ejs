@@ -73,7 +73,12 @@
 
                 </div>
                 <!-- Hidden Input for book_id (cover_id) -->
-                <input type="hidden" name="book_id" id="reviewBookId" value="">
+                <!-- 🔹 Hidden Inputs to Ensure Data is Submitted in `req.body` -->
+                <input type="hidden" name="title" id="review-book-title">
+                <input type="hidden" name="author" id="review-book-author">
+                <input type="hidden" name="isbn" id="review-book-isbn">
+                <input type="hidden" name="published_date" id="review-book-published-date">
+                <input type="hidden" name="book_id" id="review-book-id">
 
 
                 <textarea class="review-text" name="review" placeholder="Write your review..."></textarea>

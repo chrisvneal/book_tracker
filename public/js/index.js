@@ -17,7 +17,14 @@ function populateReviewHeader(book) {
 	document.querySelector(".review-book-author span").textContent = author;
 	document.querySelector(".review-book-isbn span").textContent = isbn;
 	document.querySelector(".review-book-published-date span").textContent = published_date;
-	document.querySelector("#reviewBookId").value = cover_id;
+	// document.querySelector("#reviewBookId").value = cover_id;
+
+	// 🔹 Set hidden input values for form submission
+	document.getElementById("review-book-title").value = title;
+	document.getElementById("review-book-author").value = author;
+	document.getElementById("review-book-isbn").value = isbn;
+	document.getElementById("review-book-published-date").value = published_date;
+	document.getElementById("review-book-id").value = cover_id;
 
 	let bookInfo = { title, author, isbn, published_date, cover_id };
 	if (bookInfo) {
