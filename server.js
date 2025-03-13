@@ -46,7 +46,7 @@ app.post("/reviews", (req, res) => {
 	// save book to database if it isnt there, "books" table
 
 	// saved review to database, "reviews" table
-	res.redirect("/");
+	// res.redirect("/");
 });
 
 app.listen(MAIN_PORT, () => {

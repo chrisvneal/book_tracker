@@ -5,7 +5,7 @@ function getColorURL(cover_id, size) {
 
 function populateReviewHeader(book) {
 	// get review book title, author name, isbn from selected book
-	let title, author, isbn, published_date;
+	let title, author, isbn, published_date, cover_id;
 
 	title = book.querySelector("h3").textContent.trim();
 	author = book.querySelector(".book-author span").textContent.trim();
