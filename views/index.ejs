@@ -38,8 +38,10 @@
                                         <%= book.author %>
                                     </span>
                                 </p>
-                                <p>
-                                    Published: <%= book.published_date %>
+                                <p class="book-published-date">
+                                    Year published: <span>
+                                        <%= book.published_date %>
+                                    </span>
                                 </p>
                                 <p class="book-isbn">
                                     ISBN: <span>
@@ -66,6 +68,7 @@
                 <div class="review-book-info">
                     <h3 class="review-book-title"></h3>
                     <p class="review-book-author">Author: <span></span></p>
+                    <p class="review-book-published-date">Year published: <span></span></p>
                     <p class="review-book-isbn">ISBN: <span></span></p>
 
                 </div>

@@ -1,16 +1,18 @@
 function populateReviewHeader(book) {
 	// get review book title, author name, isbn from selected book
-	let title, author, isbn;
+	let title, author, isbn, published_date;
 
 	title = book.querySelector("h3").textContent.trim();
 	author = book.querySelector(".book-author span").textContent.trim();
 	isbn = book.querySelector(".book-isbn span").textContent.trim();
+	published_date = book.querySelector(".book-published-date span").textContent.trim();
 
 	document.querySelector(".review-book-title").textContent = title;
 	document.querySelector(".review-book-author span").textContent = author;
 	document.querySelector(".review-book-isbn span").textContent = isbn;
+	document.querySelector(".review-book-published-date span").textContent = published_date;
 
-	let bookInfo = { title, author, isbn };
+	let bookInfo = { title, author, isbn, published_date };
 	if (bookInfo) {
 		console.log(bookInfo);
 	} else {
