@@ -1,6 +1,22 @@
 function populateReviewHeader(book) {
-	document.querySelector(".review-book-title").textContent = book.querySelector("h3").textContent;
-	document.querySelector(".review-book-author").textContent = book.querySelector(".book-author").textContent;
+	// get review book title, author name, isbn from selected book
+	let title, author, isbn;
+
+	title = book.querySelector("h3").textContent.trim();
+	author = book.querySelector(".book-author span").textContent.trim();
+	isbn = book.querySelector(".book-isbn span").textContent.trim();
+
+	document.querySelector(".review-book-title").textContent = title;
+	document.querySelector(".review-book-author span").textContent = author;
+	document.querySelector(".review-book-isbn span").textContent = isbn;
+
+	let bookInfo = { title, author, isbn };
+	if (bookInfo) {
+		console.log(bookInfo);
+	} else {
+		console.log("Try again!");
+	}
+
 	document.querySelector(".review-book-image img").setAttribute("src", book.querySelector("img").getAttribute("src"));
 	// document.querySelector(".review-book").setAttribute("data-id", book.closest(".book").getAttribute("data-id"));
 }

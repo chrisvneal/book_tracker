@@ -41,8 +41,10 @@
                                 <p>
                                     Published: <%= book.published_date %>
                                 </p>
-                                <p>
-                                    ISBN: <%= book.isbn || "ISBN not available." %>
+                                <p class="book-isbn">
+                                    ISBN: <span>
+                                        <%= book.isbn || "ISBN not available." %>
+                                    </span>
                                 </p>
                             </div>
                         </li>
@@ -63,7 +65,9 @@
                 </div>
                 <div class="review-book-info">
                     <h3 class="review-book-title"></h3>
-                    <p class="review-book-author"></p>
+                    <p class="review-book-author">Author: <span></span></p>
+                    <p class="review-book-isbn">ISBN: <span></span></p>
+
                 </div>
 
 
