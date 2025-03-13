@@ -27,7 +27,7 @@
                 <ul>
                     <% books.forEach(book=> { %>
                         </li>
-                        <li class="book">
+                        <li class="book" data-cover-id="<%= book.cover_id %>">
                             <img class="book-image" src="<%= book.cover_url_small %>" alt="<%= book.title %>">
                             <div class="book-info">
                                 <h3>
@@ -72,6 +72,8 @@
                     <p class="review-book-isbn">ISBN: <span></span></p>
 
                 </div>
+                <!-- Hidden Input for book_id (cover_id) -->
+                <input type="hidden" name="book_id" id="reviewBookId" value="">
 
 
                 <textarea class="review-text" name="review" placeholder="Write your review..."></textarea>
