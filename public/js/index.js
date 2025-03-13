@@ -1,3 +1,8 @@
+function getColorURL(cover_id, size) {
+	let url = `http://covers.openlibrary.org/b/id/${cover_id}-${size.toUpperCase()}.jpg`;
+	return url;
+}
+
 function populateReviewHeader(book) {
 	// get review book title, author name, isbn from selected book
 	let title, author, isbn, published_date;
