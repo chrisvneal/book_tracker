@@ -120,8 +120,20 @@ app.post("/api/search-history", async (req, res) => {
 	await db.query(query.text, query.values);
 });
 
-app.post("/api/submit-review", (req, res) => {
-	res.redirect("/");
+app.post("/api/submit-review", async (req, res) => {
+	const { book_id, isbn, title, author, published_date } = req.body;
+	let storeBook = {
+		text: "INSERT INTO books (book_id, isbn, title, author, published_date) VALUES ($1, $2, $3, $4, $5) ON CONFLICT ON CONSTRAINT unique_book DO NOTHING",
+		values: [book_id, isbn, title, author, published_date],
+	};
+
+	try {
+		await db.query(storeBook.text, storeBook.values);
+
+		res.redirect("/");
+	} catch (error) {
+		console.error(error.message);
+	}
 });
 
 // listen on the API_PORT for incoming requests

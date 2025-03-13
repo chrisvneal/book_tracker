@@ -39,14 +39,21 @@ app.post("/search", async (req, res) => {
 	}
 });
 
-app.post("/reviews", (req, res) => {
+app.post("/reviews", async (req, res) => {
 	// res.sendStatus(400).json({ error: "Book not found" });
-	console.log("#################");
-	console.log(req.body);
+
+	const { title, isbn, author, published_date, book_id, review } = req.body;
+
 	// save book to database if it isnt there, "books" table
 
+	try {
+		await axios.post(`${API_URL}/api/submit-review`, { title, isbn, author, published_date, book_id, review });
+	} catch (error) {
+		console.error(error);
+	}
+
 	// saved review to database, "reviews" table
-	// res.redirect("/");
+	res.redirect("/");
 });
 
 app.listen(MAIN_PORT, () => {
