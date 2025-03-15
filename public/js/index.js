@@ -26,6 +26,18 @@ function populateReviewHeader(book) {
 	// document.querySelector(".review-book").setAttribute("data-id", book.closest(".book").getAttribute("data-id"));
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+	document.querySelectorAll(".book").forEach((bookElement) => {
+		bookElement.addEventListener("mouseenter", function () {
+			let coverUrlLarge = this.getAttribute("data-cover-large");
+
+			// Lazy preload large image only when hovering over a book
+			let img = new Image();
+			img.src = coverUrlLarge;
+		});
+	});
+});
+
 let hiddenInput = document.querySelector("#searched");
 
 let form = document.querySelector("#search-form");
