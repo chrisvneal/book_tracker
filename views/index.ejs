@@ -26,8 +26,9 @@
                 <h2>Results</h2>
                 <ul>
                     <% books.forEach(book=> { %>
-                        </li>
-                        <li class="book" data-cover-id="<%= book.cover_id %>">
+
+                        <li class="book" data-cover-id="<%= book.cover_id %>"
+                            data-cover-large="<%= book.cover_url_large  %>">
                             <img class="book-image" src="<%= book.cover_url_small %>" alt="<%= book.title %>">
                             <div class="book-info">
                                 <h3>
@@ -50,6 +51,8 @@
                                 </p>
                             </div>
                         </li>
+
+
                         <% }) %>
                             <% } else if (locals.error) { %>
                                 <p>
