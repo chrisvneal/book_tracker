@@ -148,4 +148,13 @@ textarea {
   margin-right: 0.5em;
 }
 
+header {
+  grid-column: 1/-1;
+  margin-bottom: 1em;
+}
+
+h1 {
+  color: #505057;
+}
+
 /*# sourceMappingURL=styles.css.map */

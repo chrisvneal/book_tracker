@@ -1,5 +1,7 @@
 @import 'reset';
 
+$text-color: #505057;
+
 body {
     font-family: Inter, sans-serif;
 }
@@ -112,4 +114,13 @@ textarea {
 
 #query {
     margin-right: 0.5em;
+}
+
+header {
+    grid-column: 1 / -1;
+    margin-bottom: 1em;
+}
+
+h1 {
+    color: $text-color;
 }
