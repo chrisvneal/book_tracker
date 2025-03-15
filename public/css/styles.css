@@ -124,6 +124,11 @@ ul {
   height: auto;
 }
 
+.book-image {
+  width: 90px;
+  height: 90px;
+}
+
 .hidden {
   visibility: hidden;
 }
