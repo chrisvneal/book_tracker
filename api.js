@@ -122,17 +122,39 @@ app.post("/api/search-history", async (req, res) => {
 
 app.post("/api/submit-review", async (req, res) => {
 	const { book_id, isbn, title, author, published_date } = req.body;
-	let storeBook = {
-		text: "INSERT INTO books (book_id, isbn, title, author, published_date) VALUES ($1, $2, $3, $4, $5) ON CONFLICT ON CONSTRAINT unique_book DO NOTHING",
-		values: [book_id, isbn, title, author, published_date],
+
+	// check if book is in database
+
+	let getBook = {
+		text: "SELECT * FROM books WHERE book_id = $1 AND isbn = $2",
+		values: [String(book_id), String(isbn)],
 	};
 
-	try {
-		await db.query(storeBook.text, storeBook.values);
+	let book = await db.query(getBook.text, getBook.values);
 
-		res.redirect("/");
-	} catch (error) {
-		console.error(error.message);
+	// if book is not in the database, store it
+	if (book.rows.length === 0) {
+		// store book in database
+
+		let storeBook = {
+			text: "INSERT INTO books (book_id, isbn, title, author, published_date) VALUES ($1, $2, $3, $4, $5) ON CONFLICT ON CONSTRAINT unique_book DO NOTHING",
+			values: [book_id, isbn, title, author, published_date],
+		};
+
+		try {
+			await db.query(storeBook.text, storeBook.values);
+
+			res.redirect("/");
+		} catch (error) {
+			console.error(error.message);
+		}
+	} else {
+		console.log("");
+		console.log("**********");
+		console.warn("Book is already in database!");
+		console.log("");
+
+		return res.status(500).json({ message: "Internal server error" });
 	}
 });
 
