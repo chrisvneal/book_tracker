@@ -46,11 +46,19 @@ app.post("/reviews", async (req, res) => {
 
 	try {
 		await axios.post(`${API_URL}/api/submit-review`, { title, isbn, author, published_date, book_id, review });
+		console.log("");
+		console.log("Book review sent.");
+		console.log("");
 
 		res.redirect("/");
 	} catch (error) {
-		console.error(error.message);
-
+		console.error("Axios error:");
+		if (error.response) {
+			console.error("Status:", error.response.status);
+			console.error("Data:", error.response.data);
+		} else {
+			console.error(error.message);
+		}
 		res.redirect("/");
 	}
 });
