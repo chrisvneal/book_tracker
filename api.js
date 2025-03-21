@@ -36,21 +36,6 @@ async function getTitleISBN(title) {
 	}
 }
 
-// async function storeBookInDB(book) {
-// 	const { cover_id, title, author, isbn, cover_url_small, cover_url_medium, cover_url_large, published_date } = book;
-
-// 	const query = {
-// 		text: "INSERT INTO books(book_id, isbn, title, author, cover_url_small, cover_url_medium, cover_url_large, published_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (book_id) DO NOTHING",
-// 		values: [cover_id, isbn, title, author, cover_url_small, cover_url_medium, cover_url_large, published_date],
-// 	};
-
-// 	try {
-// 		await db.query(query.text, query.values);
-// 	} catch (error) {
-// 		console.error(error);
-// 	}
-// }
-
 // Search for book by ISBN or title
 
 app.post("/api/search", async (req, res) => {
@@ -105,8 +90,6 @@ app.post("/api/search", async (req, res) => {
 
 			// store each book/result in searchResults array
 			searchResults.push(book);
-
-			// await storeBookInDB(book);
 		}
 
 		// send search results as JSON to server
@@ -131,7 +114,6 @@ app.post("/api/submit-review", async (req, res) => {
 	// if book is not in the database, store it
 	if (book.rows.length === 0) {
 		// store book in database
-
 		let storeBook = {
 			text: "INSERT INTO books (book_id, isbn, title, author, published_date) VALUES ($1, $2, $3, $4, $5) ON CONFLICT ON CONSTRAINT unique_book DO NOTHING",
 			values: [book_id, isbn, title, author, published_date],
@@ -143,14 +125,12 @@ app.post("/api/submit-review", async (req, res) => {
 			res.redirect("/");
 		} catch (error) {
 			console.error(error.message);
+			return res.status(500).json({ message: "Database error" });
 		}
 	} else {
-		console.log("");
-		console.log("**********");
-		console.warn("Book is already in database!");
-		console.log("");
+		console.log("Book is already in database!");
 
-		return res.status(500).json({ message: "Internal server error" });
+		return res.status(200).json({ message: "Book already exists, no action needed." });
 	}
 });
 

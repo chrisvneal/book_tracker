@@ -27,6 +27,7 @@ app.post("/search", async (req, res) => {
 
 	try {
 		// retrieve results from API
+
 		const results = await axios.post(`${API_URL}/api/search`, isISBN ? { isbn: query } : { query });
 
 		// Render main page with retrieved book data
@@ -45,20 +46,11 @@ app.post("/reviews", async (req, res) => {
 
 	try {
 		await axios.post(`${API_URL}/api/submit-review`, { title, isbn, author, published_date, book_id, review });
-		// saved review to database, "reviews" table
+
 		res.redirect("/");
 	} catch (error) {
-		console.log("");
-		console.log("");
-		console.log("");
-		console.log("");
-		console.log("");
-		console.log("ERROR***************************");
-		console.error(error);
-		console.log("");
+		console.error(error.message);
 
-		// Send an error response instead of redirecting
-		// return res.status(500).json({ error: "Failed to submit review" });
 		res.redirect("/");
 	}
 });
