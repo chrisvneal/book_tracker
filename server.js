@@ -29,9 +29,6 @@ app.post("/search", async (req, res) => {
 		// retrieve results from API
 		const results = await axios.post(`${API_URL}/api/search`, isISBN ? { isbn: query } : { query });
 
-		// post search term to "history" table
-		// axios.post(`${API_URL}/api/search-history`, { query, profile_id });
-
 		// Render main page with retrieved book data
 		res.status(200).render("index.ejs", { books: results.data });
 	} catch (error) {

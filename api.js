@@ -112,14 +112,6 @@ app.post("/api/search", async (req, res) => {
 	res.status(200).json(searchResults);
 });
 
-app.post("/api/search-history", async (req, res) => {
-	let query = {
-		text: "INSERT INTO history (profile_id, search_query) VALUES ($1, $2)",
-		values: [req.body.profile_id, req.body.query],
-	};
-	await db.query(query.text, query.values);
-});
-
 app.post("/api/submit-review", async (req, res) => {
 	const { book_id, isbn, title, author, published_date } = req.body;
 
