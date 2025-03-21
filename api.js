@@ -70,46 +70,50 @@ app.post("/api/search", async (req, res) => {
 	}
 
 	// Fetch book data from OpenLibrary and parse it
-	const result = await axios.get(openLibraryURL);
-	const bookData = result.data.docs;
+	try {
+		const result = await axios.get(openLibraryURL);
+		const bookData = result.data.docs;
 
-	// Initialize array to store search results from API
-	let searchResults = [];
+		// Initialize array to store search results from API
+		let searchResults = [];
 
-	// Loop through results, insert into books array
-	for (let i = 0; i < bookData.length; i++) {
-		if (!bookData[i]) {
-			continue;
+		// Loop through results, insert into books array
+		for (let i = 0; i < bookData.length; i++) {
+			if (!bookData[i]) {
+				continue;
+			}
+
+			// Get ISBN from Google Books API by title
+			const googleISBN = (await getTitleISBN(bookData[i].title)) || "Unknown ISBN";
+
+			if (!bookData[i].cover_i) {
+				continue;
+			}
+
+			// create new object from OpenLibrary API data
+			const { title, author_name, first_publish_year, cover_i } = bookData[i];
+			const book = {
+				title: title,
+				author: author_name?.[0] || "Unknown",
+				isbn: isbn || googleISBN,
+				published_date: first_publish_year || "Unknown",
+				cover_id: cover_i,
+				cover_url_small: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-S.jpg` : null,
+				cover_url_medium: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-M.jpg` : null,
+				cover_url_large: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-L.jpg` : null,
+			};
+
+			// store each book/result in searchResults array
+			searchResults.push(book);
+
+			// await storeBookInDB(book);
 		}
 
-		// Get ISBN from Google Books API by title
-		const googleISBN = (await getTitleISBN(bookData[i].title)) || "Unknown ISBN";
-
-		if (!bookData[i].cover_i) {
-			continue;
-		}
-
-		// create new object from OpenLibrary API data
-		const { title, author_name, first_publish_year, cover_i } = bookData[i];
-		const book = {
-			title: title,
-			author: author_name?.[0] || "Unknown",
-			isbn: isbn || googleISBN,
-			published_date: first_publish_year || "Unknown",
-			cover_id: cover_i,
-			cover_url_small: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-S.jpg` : null,
-			cover_url_medium: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-M.jpg` : null,
-			cover_url_large: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-L.jpg` : null,
-		};
-
-		// store each book/result in searchResults array
-		searchResults.push(book);
-
-		// await storeBookInDB(book);
+		// send search results as JSON to server
+		res.status(200).json(searchResults);
+	} catch (error) {
+		res.status(400).json({ message: error.message });
 	}
-
-	// send search results as JSON to server
-	res.status(200).json(searchResults);
 });
 
 app.post("/api/submit-review", async (req, res) => {

@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 
 // Retrieve book data from API
 app.post("/search", async (req, res) => {
-	const { query, profile_id } = req.body;
+	const { query } = req.body;
 
 	// Check if the query is an ISBN
 	const isISBN = (/^[\d-]+$/.test(query) && query.replace(/-/g, "").length === 10) || query.replace(/-/g, "").length === 13;
