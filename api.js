@@ -100,7 +100,7 @@ app.post("/api/search", async (req, res) => {
 });
 
 app.post("/api/submit-review", async (req, res) => {
-	const { book_id, isbn, title, author, published_date } = req.body;
+	const { book_id, isbn, title, author, published_date, review } = req.body;
 
 	// check if book is in database
 
@@ -119,9 +119,22 @@ app.post("/api/submit-review", async (req, res) => {
 			values: [book_id, isbn, title, author, published_date],
 		};
 
+		// store review in database
+		let storeReview = {
+			text: "INSERT INTO reviews (book_id, review_text) VALUES ($1, $2)",
+			values: [book_id, review],
+		};
+
 		try {
+			await db.query("BEGIN"); // Start transaction
+
 			await db.query(storeBook.text, storeBook.values);
 			console.log("Book added to database.");
+
+			await db.query(storeReview.text, storeReview.values);
+			console.log("Review added to database.");
+
+			await db.query("COMMIT"); // Commit transaction
 
 			return res.status(201).json({ message: "Book added successfully" });
 		} catch (error) {
@@ -129,9 +142,8 @@ app.post("/api/submit-review", async (req, res) => {
 			return res.status(500).json({ message: "Database error" });
 		}
 	} else {
-		console.log("Book is already in database!");
-
-		return res.status(200).json({ message: "Book already exists, no action needed." });
+		console.log("Book already exists in database.");
+		return res.status(400).json({ message: "Book already exists in database" });
 	}
 });
 
