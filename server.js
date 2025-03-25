@@ -46,7 +46,7 @@ app.post("/reviews", async (req, res) => {
 
 	try {
 		await axios.post(`${API_URL}/api/submit-review`, { title, isbn, author, published_date, book_id, review });
-		console.log("Book review sent.");
+		// console.log("Book review sent.");
 
 		res.redirect("/");
 	} catch (error) {

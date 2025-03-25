@@ -121,6 +121,7 @@ app.post("/api/submit-review", async (req, res) => {
 
 		try {
 			await db.query(storeBook.text, storeBook.values);
+			console.log("Book added to database.");
 
 			return res.status(201).json({ message: "Book added successfully" });
 		} catch (error) {
