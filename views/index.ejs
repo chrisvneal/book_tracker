@@ -67,29 +67,7 @@
                 </ul>
         </div>
 
-        <div class="owned-books">
 
-            <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
-                <h2>Owned Books</h2>
-                <ul>
-                    <% ownedBooks.forEach(book=> { %>
-                        <li class="owned-book">
-                            <h3>
-                                <%= book.title %>
-                            </h3>
-                            <p>Author: <%= book.author %>
-                            </p>
-                            <p>ISBN: <%= book.isbn || "Not available." %>
-                            </p>
-                            <p>Published Date: <%= book.published_date || "Not available." %>
-                            </p>
-                        </li>
-                        <% }) %>
-                </ul>
-                <% } else { %>
-                    <p>No owned books available.</p>
-                    <% } %>
-        </div>
 
 
 
@@ -118,6 +96,30 @@
                 <textarea class="review-text" name="review" placeholder="Write your review..."></textarea>
                 <button type="submit" class="submit-review">Submit Review</button>
             </form>
+        </div>
+
+        <div class="owned-books">
+
+            <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
+                <h2>Owned Books</h2>
+                <ul>
+                    <% ownedBooks.forEach(book=> { %>
+                        <li class="owned-book">
+                            <h3>
+                                <%= book.title %>
+                            </h3>
+                            <p>Author: <%= book.author %>
+                            </p>
+                            <p>ISBN: <%= book.isbn || "Not available." %>
+                            </p>
+                            <p>Published Date: <%= book.published_date || "Not available." %>
+                            </p>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } else { %>
+                    <p>No owned books available.</p>
+                    <% } %>
         </div>
 
 

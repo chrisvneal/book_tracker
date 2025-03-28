@@ -109,8 +109,10 @@ ul {
 }
 
 .owned-books {
-  grid-column: 1/4;
+  grid-column: 1/-1;
   grid-row-start: 3;
+  border-top: 1px solid #D3D3D3;
+  padding-top: 1em;
 }
 
 .review-section {
