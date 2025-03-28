@@ -54,13 +54,18 @@ app.post("/reviews", async (req, res) => {
 
 		res.redirect("/");
 	} catch (error) {
-		console.error("Axios error:");
 		if (error.response) {
+			if (error.response.status === 204) {
+				return res.redirect("/");
+			}
+
+			console.error("Axios error:");
 			console.error("Status:", error.response.status);
 			console.error("Data:", error.response.data);
 		} else {
 			console.error(error.message);
 		}
+
 		res.redirect("/");
 	}
 });

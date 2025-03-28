@@ -140,24 +140,26 @@ app.post("/api/submit-review", async (req, res) => {
 		};
 
 		try {
+			// try accessing the database
 			await db.query("BEGIN"); // Start transaction
 
 			await db.query(storeBook.text, storeBook.values);
-			console.log("Book added to database.");
+			// console.log("Book added to database.");
 
 			await db.query(storeReview.text, storeReview.values);
-			console.log("Review added to database.");
+			// console.log("Review added to database.");
 
 			await db.query("COMMIT"); // Commit transaction
 
 			return res.status(201).json({ message: "Book added successfully" });
 		} catch (error) {
+			// database error
 			console.error(error.message);
 			return res.status(500).json({ message: "Database error" });
 		}
 	} else {
 		console.log("Book already exists in database.");
-		return res.status(400).json({ message: "Book already exists in database" });
+		return res.status(204).end();
 	}
 });
 
