@@ -69,6 +69,12 @@ ul {
     margin-bottom: 1em;
 }
 
+.owned-books {
+    grid-column: 1 / 4;
+    grid-row-start: 3;
+    // outline: 1px solid red;
+}
+
 .review-section {
     grid-column: 5  / 7;
 
