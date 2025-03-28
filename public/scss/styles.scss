@@ -4,6 +4,7 @@ $text-color: #505057;
 
 body {
     font-family: Inter, sans-serif;
+    color: $text-color
 }
 
 h1, h2, h3 {
@@ -12,9 +13,7 @@ h1, h2, h3 {
 
 
 ul {
-    list-style-type: none;
-
-    
+    list-style-type: none; 
 }
 
 .container {
