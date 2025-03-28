@@ -14,8 +14,10 @@ const MAIN_PORT = process.env.MAIN_PORT || 3000;
 const API_URL = process.env.API_URL || "http://localhost:4000";
 
 // Render main page
-app.get("/", (req, res) => {
-	res.render("index.ejs");
+app.get("/", async (req, res) => {
+	const ownedBooks = await axios.get(`${API_URL}/api/reviews`);
+
+	res.render("index.ejs", { ownedBooks: ownedBooks.data });
 });
 
 // Retrieve book data from API

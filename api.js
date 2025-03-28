@@ -36,6 +36,20 @@ async function getTitleISBN(title) {
 	}
 }
 
+app.get("/api/reviews", async (req, res) => {
+	const getReviews = {
+		text: "SELECT  books.book_id AS book_id, books.title AS title, books.author AS author, books.published_date AS published_date,  reviews.review_text AS review FROM books LEFT JOIN reviews ON books.book_id = reviews.book_id ORDER BY books.title ASC;",
+	};
+
+	try {
+		let results = await db.query(getReviews.text);
+		// console.log(results.rows);
+		res.status(200).json(results.rows);
+	} catch (error) {
+		console.error(error.message);
+	}
+});
+
 // Search for book by ISBN or title
 
 app.post("/api/search", async (req, res) => {
