@@ -28,14 +28,16 @@ app.post("/search", async (req, res) => {
 	const isISBN = (/^[\d-]+$/.test(query) && query.replace(/-/g, "").length === 10) || query.replace(/-/g, "").length === 13;
 
 	try {
+		const ownedBooks = await axios.get(`${API_URL}/api/reviews`);
+
 		// retrieve results from API
 
 		const results = await axios.post(`${API_URL}/api/search`, isISBN ? { isbn: query } : { query });
 
 		// Render main page with retrieved book data
-		res.status(200).render("index.ejs", { books: results.data });
+		res.status(200).render("index.ejs", { books: results.data, ownedBooks: ownedBooks.data });
 	} catch (error) {
-		res.status(500).render("index.ejs", { books: [], error: "An error occurred while searching for the book." });
+		res.status(500).render("index.ejs", { books: [], error: "An error occurred while searching for the book.", ownedBooks: ownedBooks.data });
 	}
 });
 
