@@ -25,8 +25,9 @@
             <button type="submit">Search</button>
         </form>
 
-        <div class="book-search-results">
-            <% if (locals.books && locals.books.length) { %>
+
+        <% if (locals.books && locals.books.length) { %>
+            <div class="book-search-results">
                 <h2>Results</h2>
                 <ul>
                     <% books.forEach(book=> { %>
@@ -57,70 +58,76 @@
                             </div>
                         </li>
 
-
-                        <% }) %>
-                            <% } else if (locals.error) { %>
-                                <p>
-                                    <%= error %>
-                                </p>
-                                <% } %>
                 </ul>
-        </div>
+            </div>
 
 
-
-
-
-        <div class="review-section hidden">
-            <form class="review-form" action="/reviews" method="post">
-                <h2>Write a review</h2>
-                <div class="review-book-image">
-                    <img src="" alt="">
-                </div>
-                <div class="review-book-info">
-                    <h3 class="review-book-title"></h3>
-                    <p class="review-book-author">Author: <span></span></p>
-                    <p class="review-book-published-date">Year published: <span></span></p>
-                    <p class="review-book-isbn">ISBN: <span></span></p>
-
-                </div>
-                <!-- Hidden Input for book_id (cover_id) -->
-                <!-- 🔹 Hidden Inputs to Ensure Data is Submitted in `req.body` -->
-                <input type="hidden" name="title" id="review-book-title">
-                <input type="hidden" name="author" id="review-book-author">
-                <input type="hidden" name="isbn" id="review-book-isbn">
-                <input type="hidden" name="published_date" id="review-book-published-date">
-                <input type="hidden" name="book_id" id="review-book-id">
-
-
-                <textarea class="review-text" name="review" placeholder="Write your review..."></textarea>
-                <button type="submit" class="submit-review">Submit Review</button>
-            </form>
-        </div>
-
-        <div class="owned-books">
-
-            <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
-                <h2>Owned Books</h2>
-                <ul>
-                    <% ownedBooks.forEach(book=> { %>
-                        <li class="owned-book">
-                            <h3>
-                                <%= book.title %>
-                            </h3>
-                            <p>Author: <%= book.author %>
-                            </p>
-                            <p>ISBN: <%= book.isbn || "Not available." %>
-                            </p>
-                            <p>Published Date: <%= book.published_date || "Not available." %>
-                            </p>
-                        </li>
-                        <% }) %>
-                </ul>
-                <% } else { %>
-                    <p>No owned books available.</p>
+            <% }) %>
+                <% } else if (locals.error) { %>
+                    <p>
+                        <%= error %>
+                    </p>
                     <% } %>
-        </div>
+
+
+
+
+
+
+
+
+
+                        <div class="review-section hidden">
+                            <form class="review-form" action="/reviews" method="post">
+                                <h2>Write a review</h2>
+                                <div class="review-book-image">
+                                    <img src="" alt="">
+                                </div>
+                                <div class="review-book-info">
+                                    <h3 class="review-book-title"></h3>
+                                    <p class="review-book-author">Author: <span></span></p>
+                                    <p class="review-book-published-date">Year published: <span></span></p>
+                                    <p class="review-book-isbn">ISBN: <span></span></p>
+
+                                </div>
+                                <!-- Hidden Input for book_id (cover_id) -->
+                                <!-- 🔹 Hidden Inputs to Ensure Data is Submitted in `req.body` -->
+                                <input type="hidden" name="title" id="review-book-title">
+                                <input type="hidden" name="author" id="review-book-author">
+                                <input type="hidden" name="isbn" id="review-book-isbn">
+                                <input type="hidden" name="published_date" id="review-book-published-date">
+                                <input type="hidden" name="book_id" id="review-book-id">
+
+
+                                <textarea class="review-text" name="review"
+                                    placeholder="Write your review..."></textarea>
+                                <button type="submit" class="submit-review">Submit Review</button>
+                            </form>
+                        </div>
+
+                        <div class="owned-books">
+
+                            <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
+                                <h2>Owned Books</h2>
+                                <ul>
+                                    <% ownedBooks.forEach(book=> { %>
+                                        <li class="owned-book">
+                                            <h3>
+                                                <%= book.title %>
+                                            </h3>
+                                            <p>Author: <%= book.author %>
+                                            </p>
+                                            <p>ISBN: <%= book.isbn || "Not available." %>
+                                            </p>
+                                            <p>Published Date: <%= book.published_date || "Not available." %>
+                                            </p>
+                                        </li>
+                                        <% }) %>
+                                </ul>
+                                <% } else { %>
+                                    <p>No owned books available.</p>
+                                    <% } %>
+                        </div>
 
 
 
