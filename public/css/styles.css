@@ -121,6 +121,7 @@ header {
   cursor: pointer;
 }
 .book-search-results ul .book.selected {
+  border: 1px solid #cacaca;
   background-color: #e8e8e8;
 }
 .book-search-results ul .book-image {
