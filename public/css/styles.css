@@ -63,6 +63,10 @@ ul {
   list-style-type: none;
 }
 
+h1 {
+  color: #505057;
+}
+
 /********** Sections **********/
 .container {
   width: 80%;
@@ -77,6 +81,7 @@ ul {
 
 header {
   grid-column: 1/-1;
+  margin-bottom: 1em;
 }
 
 .search-form {
@@ -84,7 +89,12 @@ header {
   grid-row: 2/3;
   margin-bottom: 1em;
 }
+.search-form input, .search-form button {
+  height: 40px;
+  padding: 5px;
+}
 .search-form input {
+  margin-right: 0.5em;
   height: 35px;
   padding: 4px;
 }
@@ -111,6 +121,8 @@ header {
   background-color: #e8e8e8;
 }
 .book-search-results ul .book-image {
+  width: 90px;
+  height: 90px;
   margin-right: 1.5em;
 }
 
@@ -130,49 +142,21 @@ header {
   width: 100%;
   height: auto;
 }
-
-.owned-books {
-  grid-column: 1/-1;
-  grid-row: 4/5;
-  border-top: 1px solid #D3D3D3;
-  padding-top: 1em;
-}
-
-.book-image {
-  width: 90px;
-  height: 90px;
-}
-
-.hidden {
-  display: none;
-}
-
-textarea {
+.review-section textarea {
   width: 100%;
   height: 100px;
   padding: 10px;
 }
 
-#query, button {
-  height: 40px;
-  padding: 5px;
-}
-
-form {
-  grid-row: 2/3;
-}
-
-#query {
-  margin-right: 0.5em;
-}
-
-header {
+.owned-books {
   grid-column: 1/-1;
-  margin-bottom: 1em;
+  grid-row: 4/5;
+  border-top: 1px solid #d3d3d3;
+  padding-top: 1em;
 }
 
-h1 {
-  color: #505057;
+.hidden {
+  display: none;
 }
 
 /*# sourceMappingURL=styles.css.map */
