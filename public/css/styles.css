@@ -104,12 +104,6 @@ header {
   grid-column: 1/4;
   grid-row: 3/4;
 }
-.book-search-results ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  flex-direction: column;
-}
 .book-search-results ul .book {
   display: flex;
   padding: 25px 0;
@@ -121,6 +115,7 @@ header {
 .book-search-results ul .book.selected {
   border: 1px solid #cacaca;
   background-color: #e8e8e8;
+  padding-left: 0.5em;
 }
 .book-search-results ul .book-image {
   width: 90px;
@@ -129,7 +124,7 @@ header {
 }
 
 .review-section {
-  grid-column: 5/7;
+  grid-column: 5/-1;
   grid-row: 3/4;
 }
 .review-section h2 ~ * {

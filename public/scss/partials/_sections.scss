@@ -36,10 +36,6 @@ header {
     grid-row: 3/4;
 
     ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        flex-direction: column;
 
         .book {
             display: flex;
@@ -53,6 +49,7 @@ header {
             &.selected {
                 border: 1px solid lighten(#4A4A4A, 50%);
                 background-color: lighten(#4A4A4A, 62%);
+                padding-left: .5em;
             }
         
             &-image {
@@ -65,7 +62,7 @@ header {
 }
 
 .review-section {
-    grid-column: 5/7;
+    grid-column: 5/-1;
     grid-row: 3/4;
 
     & h2 ~ * {
