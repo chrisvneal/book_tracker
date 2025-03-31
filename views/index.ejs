@@ -101,9 +101,9 @@
                     </div>
 
 
+                    <div class="owned-books">
+                        <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
 
-                    <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
-                        <div class="owned-books">
                             <h2>Owned Books</h2>
                             <table>
                                 <thead>
@@ -133,12 +133,12 @@
                                         <% }) %>
                                 </tbody>
                             </table>
-                        </div>
-                        <% } else { %>
-                            <p>No owned books available.</p>
-                            <% } %>
 
+                            <% } else { %>
+                                <p>No owned books available.</p>
+                                <% } %>
 
+                    </div>
 
 
 
