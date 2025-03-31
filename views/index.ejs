@@ -73,11 +73,6 @@
 
 
 
-
-
-
-
-
                     <div class="review-section hidden">
                         <form class="review-form" action="/reviews" method="post">
                             <h2>Write a review</h2>
@@ -105,9 +100,10 @@
                         </form>
                     </div>
 
-                    <div class="owned-books">
 
-                        <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
+
+                    <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
+                        <div class="owned-books">
                             <h2>Owned Books</h2>
                             <ul>
                                 <% ownedBooks.forEach(book=> { %>
@@ -124,10 +120,11 @@
                                     </li>
                                     <% }) %>
                             </ul>
-                            <% } else { %>
-                                <p>No owned books available.</p>
-                                <% } %>
-                    </div>
+                        </div>
+                        <% } else { %>
+                            <p>No owned books available.</p>
+                            <% } %>
+
 
 
 
