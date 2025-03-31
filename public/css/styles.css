@@ -86,7 +86,7 @@ ul {
   padding-top: 2em;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  column-gap: 1.5em;
+  gap: 1.5em;
 }
 
 header {
@@ -114,7 +114,6 @@ header {
 .book-search-results ul .book {
   display: flex;
   padding: 25px 0;
-  transition: background-color 0.2s ease;
 }
 .book-search-results ul .book:hover {
   background-color: #fafafa;
@@ -153,12 +152,57 @@ header {
   height: 100px;
   padding: 10px;
 }
+.review-section .submit-review {
+  padding: 0.5em;
+}
 
 .owned-books {
   grid-column: 1/-1;
   grid-row: 4;
   border-top: 1px solid #d3d3d3;
   padding-top: 1em;
+}
+
+.owned-books h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.owned-books table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: 1em;
+  font-family: Arial, sans-serif;
+}
+
+.owned-books th, .owned-books td {
+  padding: 0.75em 1em;
+  text-align: left;
+  border: 1px solid #d3d3d3;
+}
+
+.owned-books th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.owned-books tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.owned-books tr:hover {
+  background-color: #f0f0f0;
+}
+
+.owned-books td {
+  color: #333;
+}
+
+.owned-books table caption {
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  color: #555;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -6,7 +6,8 @@
     padding-top: 2em;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    column-gap: 1.5em;
+    // column-gap: 1.5em;
+    gap: 1.5em;
 }
 
 header {
@@ -40,7 +41,6 @@ header {
         .book {
             display: flex;
             padding: 25px 0;
-            transition: background-color 0.2s ease;
 
             &:hover {
                 background-color: lighten(#4A4A4A, 69%);
@@ -87,11 +87,11 @@ header {
         height: 100px;
         padding: 10px;
     }
+
+    .submit-review {
+        padding: 0.5em;        
+    }
 }
 
-.owned-books {
-    grid-column: 1 / -1;
-    grid-row: 4;
-    border-top: 1px solid $gray-light;
-    padding-top: 1em;
-}
+@import "_owned-books";
+
