@@ -1,4 +1,10 @@
 /* reset.scss */
+html, body {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+
 /* Box sizing rules */
 *,
 *::before,
@@ -48,6 +54,7 @@ button,
 textarea,
 select {
   font: inherit;
+  color: inherit;
 }
 
 h1, h2, h3 {
@@ -89,7 +96,7 @@ header {
 
 .search-form {
   grid-column: 1/-1;
-  grid-row: 2/3;
+  grid-row: 2;
   margin-bottom: 1em;
 }
 .search-form input, .search-form button {
@@ -102,11 +109,12 @@ header {
 
 .book-search-results {
   grid-column: 1/4;
-  grid-row: 3/4;
+  grid-row: 3;
 }
 .book-search-results ul .book {
   display: flex;
   padding: 25px 0;
+  transition: background-color 0.2s ease;
 }
 .book-search-results ul .book:hover {
   background-color: #fafafa;
@@ -125,14 +133,14 @@ header {
 
 .review-section {
   grid-column: 5/-1;
-  grid-row: 3/4;
+  grid-row: 3;
 }
 .review-section h2 ~ * {
   margin-bottom: 1em;
 }
 .review-section .review-book-image {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   overflow: hidden;
 }
 .review-section .review-book-image img {
@@ -148,7 +156,7 @@ header {
 
 .owned-books {
   grid-column: 1/-1;
-  grid-row: 4/5;
+  grid-row: 4;
   border-top: 1px solid #d3d3d3;
   padding-top: 1em;
 }

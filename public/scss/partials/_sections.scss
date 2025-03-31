@@ -17,7 +17,7 @@ header {
 
 .search-form {
     grid-column: 1 / -1;
-    grid-row: 2/3;
+    grid-row: 2;
     margin-bottom: 1em;
 
     input, button {
@@ -33,13 +33,14 @@ header {
 
 .book-search-results {
     grid-column: 1 / 4;
-    grid-row: 3/4;
+    grid-row: 3;
 
     ul {
 
         .book {
             display: flex;
             padding: 25px 0;
+            transition: background-color 0.2s ease;
 
             &:hover {
                 background-color: lighten(#4A4A4A, 69%);
@@ -63,15 +64,15 @@ header {
 
 .review-section {
     grid-column: 5/-1;
-    grid-row: 3/4;
+    grid-row: 3;
 
     & h2 ~ * {
         margin-bottom: 1em;
     }
 
     .review-book-image {
-        width: 150px;
-        height: 150px;
+        width: 200px;
+        height: 200px;
         overflow: hidden;
         
         img {
@@ -90,7 +91,7 @@ header {
 
 .owned-books {
     grid-column: 1 / -1;
-    grid-row: 4/5;
+    grid-row: 4;
     border-top: 1px solid $gray-light;
     padding-top: 1em;
 }
