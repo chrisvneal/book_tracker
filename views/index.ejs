@@ -105,21 +105,34 @@
                     <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
                         <div class="owned-books">
                             <h2>Owned Books</h2>
-                            <ul>
-                                <% ownedBooks.forEach(book=> { %>
-                                    <li class="owned-book">
-                                        <h3>
-                                            <%= book.title %>
-                                        </h3>
-                                        <p>Author: <%= book.author %>
-                                        </p>
-                                        <p>ISBN: <%= book.isbn || "Not available." %>
-                                        </p>
-                                        <p>Published Date: <%= book.published_date || "Not available." %>
-                                        </p>
-                                    </li>
-                                    <% }) %>
-                            </ul>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Author</th>
+                                        <th>ISBN</th>
+                                        <th>Published Year</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% ownedBooks.forEach(book=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= book.title %>
+                                            </td>
+                                            <td>
+                                                <%= book.author %>
+                                            </td>
+                                            <td>
+                                                <%= book.isbn || "Not available." %>
+                                            </td>
+                                            <td>
+                                                <%= book.published_date || "Not available." %>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                            </table>
                         </div>
                         <% } else { %>
                             <p>No owned books available.</p>
