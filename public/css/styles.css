@@ -70,6 +70,10 @@ h1 {
   display: none;
 }
 
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
 body {
   font-family: Inter, sans-serif;
   color: #505057;
