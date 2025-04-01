@@ -92,6 +92,15 @@ app.post("/reviews", async (req, res) => {
 	}
 });
 
+app.patch("/update-review", (req, res) => {
+	try {
+		const { review } = req.body;
+		console.log("Review:", review);
+	} catch (error) {
+		console.log(error.message);
+	}
+});
+
 app.listen(MAIN_PORT, () => {
 	console.log(`Server is running on port ${MAIN_PORT}`);
 });
