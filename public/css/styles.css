@@ -181,7 +181,7 @@ header {
 }
 
 .owned-books th, .owned-books td {
-  padding: 0.3em 0 0 0.5em;
+  padding: 0.3em;
   text-align: left;
   border: 1px solid #d3d3d3;
 }
