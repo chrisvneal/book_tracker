@@ -252,5 +252,8 @@ header {
 .review-edit-form button {
   padding: 0.2em;
 }
+.review-edit-form .review-edit-form__title {
+  color: #3399ff;
+}
 
 /*# sourceMappingURL=styles.css.map */

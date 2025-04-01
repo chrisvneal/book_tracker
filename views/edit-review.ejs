@@ -7,7 +7,9 @@
         <% if (locals.bookData) { %>
 
             <div class="review-edit-form">
-                <h2>Edit Review for <%= bookData.title %>
+                <h2>Edit Review for <span class="review-edit-form__title">
+                        <%= bookData.title %>
+                    </span>
                 </h2>
 
                 <p>Author: <%= bookData.author %>
