@@ -181,7 +181,7 @@ header {
 }
 
 .owned-books th, .owned-books td {
-  padding: 0.3em;
+  padding: 0.3em 0 0 0.5em;
   text-align: left;
   border: 1px solid #d3d3d3;
 }
@@ -242,6 +242,9 @@ header {
 .review-edit-form {
   grid-column: 3/5;
   grid-row: 4;
+}
+.review-edit-form h2 {
+  color: #b7b7bc;
 }
 .review-edit-form h2 ~ * {
   margin-bottom: 1em;
