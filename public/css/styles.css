@@ -239,4 +239,16 @@ header {
   border-color: #c82333;
 }
 
+.review-edit-form {
+  grid-column: 1/-1;
+}
+.review-edit-form h2 ~ * {
+  margin-bottom: 1em;
+}
+.review-edit-form textarea {
+  width: 30%;
+  height: 100px;
+  padding: 10px;
+}
+
 /*# sourceMappingURL=styles.css.map */

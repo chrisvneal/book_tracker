@@ -1,25 +1,33 @@
 <%- include('partials/header') %>
 
-    <% if (locals.bookData) { %>
-        <h1>Edit Review for <%= bookData.title %>
-        </h1>
+    <div class="container">
+        <header>
+            <h1>Book Review Tracker</h1>
+        </header>
+        <% if (locals.bookData) { %>
 
-        <p>Author: <%= bookData.author %>
-        </p>
-        <p>ISBN: <%= bookData.isbn %>
-        </p>
-        <p>Published Year: <%= bookData.published_date %>
-        </p>
-        <form action="/update-review" method="post">
-            <input type="hidden" name="book_id" value="<%= bookData.book_id %>">
-            <label for="review">Review:</label><br>
-            <textarea id="review" name="review" rows="4" cols="50"><%= bookData.review %></textarea><br><br>
+            <div class="review-edit-form">
+                <h2>Edit Review for <%= bookData.title %>
+                </h2>
 
-            <button type="submit">Update Review</button>
-        </form>
+                <p>Author: <%= bookData.author %>
+                </p>
+                <p>ISBN: <%= bookData.isbn %>
+                </p>
+                <p>Published Year: <%= bookData.published_date %>
+                </p>
+                <form action="/update-review" method="post">
+                    <input type="hidden" name="book_id" value="<%= bookData.book_id %>">
+                    <!-- <label for="review">Review:</label><br> -->
+                    <textarea id="review" name="review" rows="4" cols="50"><%= bookData.review %></textarea><br><br>
 
-        <%} %>
+                    <button type="submit">Update Review</button>
+                </form>
+            </div>
 
-            </body>
+            <%} %>
+    </div>
 
-            </html>
+    </body>
+
+    </html>
