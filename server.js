@@ -92,10 +92,15 @@ app.post("/reviews", async (req, res) => {
 	}
 });
 
-app.patch("/update-review", (req, res) => {
+app.post("/update-review", (req, res) => {
+	const { review, id } = req.body;
+	// console.log("Update review:", review, id);
+	// console.log(req.body);
 	try {
-		const { review } = req.body;
-		console.log("Review:", review);
+		// const { text, id } = req.body.review;
+		// console.log("Review:", text, id);
+		axios.patch(`${API_URL}/api/edit-review/${id}`, { review });
+		res.redirect("/");
 	} catch (error) {
 		console.log(error.message);
 	}

@@ -167,7 +167,7 @@ app.get("/api/review/:id", async (req, res) => {
 	const { id } = req.params;
 
 	let query = {
-		text: "SELECT books.isbn AS isbn, books.title AS title, books.author AS author, books.published_date AS published_date, reviews.review_text AS review FROM books LEFT JOIN reviews ON books.id = reviews.id WHERE reviews.id = $1",
+		text: "SELECT books.id AS id, books.isbn AS isbn, books.title AS title, books.author AS author, books.published_date AS published_date, reviews.review_text AS review FROM books LEFT JOIN reviews ON books.id = reviews.id WHERE reviews.id = $1",
 		values: [id],
 	};
 
@@ -175,7 +175,7 @@ app.get("/api/review/:id", async (req, res) => {
 		let results = await db.query(query.text, query.values);
 
 		if (results.rows.length > 0) {
-			const { isbn, title, author, published_date, review } = results.rows[0];
+			const { id, isbn, title, author, published_date, review } = results.rows[0];
 			return res.status(200).json({ id, isbn, title, author, published_date, review });
 		} else {
 			return res.status(404).json({ message: "Review not found." });
@@ -186,13 +186,14 @@ app.get("/api/review/:id", async (req, res) => {
 	}
 });
 
-app.put("/api/edit-review/:id", async (req, res) => {
+app.patch("/api/edit-review/:id", async (req, res) => {
 	const { id } = req.params;
-	const { title, isbn, author, published_date, review } = req.body;
+	const { review } = req.body;
+	// console.log("Update review:", review, id);
 
 	// update review in database
 	let updateReview = {
-		text: "UPDATE reviews SET review_text = $1 WHERE book_id = $2",
+		text: "UPDATE reviews SET review_text = $1 WHERE id = $2",
 		values: [review, id],
 	};
 

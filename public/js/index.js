@@ -68,12 +68,11 @@ if (document.querySelector(".update-button")) {
 		e.stopPropagation(); // Prevent triggering the book click event
 		let reviewId = this.closest("tr").getAttribute("data-id");
 
-		let review = {
-			text: document.querySelector("#review").value,
-			id: reviewId,
-		};
-
-		await axios.patch("/update-review", review);
+		try {
+			await axios.patch("/update-review");
+		} catch (error) {
+			console.error("Error updating review:", error);
+		}
 	});
 }
 
