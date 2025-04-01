@@ -40,9 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
 	// Edit button functionality
 	document.querySelectorAll(".edit-button").forEach((button) => {
 		button.addEventListener("click", function (e) {
+			e.preventDefault;
 			e.stopPropagation(); // Prevent triggering the book click event
 			let reviewId = this.closest("tr").getAttribute("data-id");
-			console.log("Edit button clicked for review ID:", reviewId);
+			// console.log("Edit button clicked for review ID:", reviewId);
 			// window.location.href = `/edit-review/${reviewId}`;
 		});
 	});
@@ -50,9 +51,10 @@ document.addEventListener("DOMContentLoaded", function () {
 	// Delete button functionality
 	document.querySelectorAll(".delete-button").forEach((button) => {
 		button.addEventListener("click", function (e) {
+			e.preventDefault(); // Prevent default action of the button
 			e.stopPropagation(); // Prevent triggering the book click event
 			let reviewId = this.closest("tr").getAttribute("data-id");
-			console.log("Delete button clicked for review ID:", reviewId);
+			// console.log("Delete button clicked for review ID:", reviewId);
 			// window.location.href = `/delete-review/${reviewId}`;
 		});
 	});
