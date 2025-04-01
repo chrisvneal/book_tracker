@@ -103,7 +103,6 @@
 
                     <div class="owned-books">
                         <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
-
                             <h2>Owned Books</h2>
                             <table>
                                 <thead>
@@ -112,11 +111,12 @@
                                         <th>Author</th>
                                         <th>ISBN</th>
                                         <th>Published Year</th>
+                                        <th>Actions</th> <!-- New column for buttons -->
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <% ownedBooks.forEach(book=> { %>
-                                        <tr>
+                                        <tr data-id="<%= book.id %>">
                                             <td>
                                                 <%= book.title %>
                                             </td>
@@ -129,16 +129,20 @@
                                             <td>
                                                 <%= book.published_date || "Not available." %>
                                             </td>
+                                            <td>
+                                                <!-- Edit and Delete buttons -->
+                                                <button class="edit-book" data-id="<%= book.id %>">Edit</button>
+                                                <button class="delete-book" data-id="<%= book.id %>">Delete</button>
+                                            </td>
                                         </tr>
                                         <% }) %>
                                 </tbody>
                             </table>
-
                             <% } else { %>
                                 <p>No owned books available.</p>
                                 <% } %>
-
                     </div>
+
 
 
 
