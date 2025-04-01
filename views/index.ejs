@@ -116,7 +116,7 @@
                                 </thead>
                                 <tbody>
                                     <% ownedBooks.forEach(book=> { %>
-                                        <tr>
+                                        <tr data-id="<%= book.id %>" data-title="<%= book.title %>">
                                             <td>
                                                 <%= book.title %>
                                             </td>

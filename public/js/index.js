@@ -36,6 +36,16 @@ document.addEventListener("DOMContentLoaded", function () {
 			img.src = coverUrlLarge;
 		});
 	});
+
+	// Edit and delete button functionality
+	document.querySelectorAll(".edit-button").forEach((button) => {
+		button.addEventListener("click", function (e) {
+			e.stopPropagation(); // Prevent triggering the book click event
+			let reviewId = this.closest("tr").getAttribute("data-id");
+			console.log("Edit button clicked for review ID:", reviewId);
+			// window.location.href = `/edit-review/${reviewId}`;
+		});
+	});
 });
 
 let hiddenInput = document.querySelector("#searched");
