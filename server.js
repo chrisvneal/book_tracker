@@ -78,7 +78,7 @@ app.get("/books/edit/:id", async (req, res) => {
 	const book = await axios.get(`${API_URL}/api/review/${id}`);
 
 	const bookData = book.data;
-	console.log("Book data:", bookData);
+	// console.log("Book data:", bookData);
 	res.render("edit-review.ejs", { bookData });
 
 	// res.render("edit-review.ejs", { id, title, isbn, author, published_date, review });
