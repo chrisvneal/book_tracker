@@ -241,6 +241,10 @@ header {
 
 .review-edit-form {
   grid-column: 3/5;
+  grid-row: 4;
+}
+.review-edit-form h2 {
+  color: #b7b7bc;
 }
 .review-edit-form h2 ~ * {
   margin-bottom: 1em;

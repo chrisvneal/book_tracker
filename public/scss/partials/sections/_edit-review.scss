@@ -1,5 +1,10 @@
 .review-edit-form {
     grid-column: 3 / 5;
+    grid-row: 4;
+
+    h2 {
+        color: $text-color-light;
+    }
 
     & h2 ~ * {
         margin-bottom: 1em;
