@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import axios from "axios";
+import methodOverride from "method-override";
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(methodOverride("_method"));
 
 const MAIN_PORT = process.env.MAIN_PORT || 3000;
 const API_URL = process.env.API_URL || "http://localhost:4000";

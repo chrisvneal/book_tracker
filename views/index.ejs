@@ -101,9 +101,8 @@
                     </div>
 
 
-
-                    <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
-                        <div class="owned-books">
+                    <div class="owned-books">
+                        <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
                             <h2>Owned Books</h2>
                             <table>
                                 <thead>
@@ -112,11 +111,13 @@
                                         <th>Author</th>
                                         <th>ISBN</th>
                                         <th>Published Year</th>
+                                        <th>Review</th>
+                                        <th>Edit / Delete</th> <!-- New column for buttons -->
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <% ownedBooks.forEach(book=> { %>
-                                        <tr>
+                                        <tr data-id="<%= book.id %>" data-title="<%= book.title %>">
                                             <td>
                                                 <%= book.title %>
                                             </td>
@@ -129,14 +130,33 @@
                                             <td>
                                                 <%= book.published_date || "Not available." %>
                                             </td>
+                                            <td>
+                                                <%= book.review || "No review available." %>
+                                            </td>
+                                            <td>
+                                                <!-- Edit Button -->
+                                                <form action="/books/edit/<%= book.id %>" method="POST"
+                                                    style="display: inline;">
+                                                    <input type="hidden" name="_method" value="PUT">
+                                                    <button type="submit" class="mr-1 edit-button">Edit Review</button>
+                                                </form>
+
+                                                <!-- Delete Button -->
+                                                <form action="/books/delete/<%= book.id %>" method="POST"
+                                                    style="display: inline;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button type="submit" class="delete-button"
+                                                        onclick="return confirm('Are you sure you want to delete this book?');">Delete</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                         <% }) %>
                                 </tbody>
                             </table>
-                        </div>
-                        <% } else { %>
-                            <p>No owned books available.</p>
-                            <% } %>
+                            <% } else { %>
+                                <p>No owned books available.</p>
+                                <% } %>
+                    </div>
 
 
 
@@ -144,6 +164,8 @@
 
 
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="js/index.js"></script>
 
