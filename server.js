@@ -72,6 +72,26 @@ app.post("/reviews", async (req, res) => {
 	}
 });
 
+app.get("/books/edit/:id", async (req, res) => {
+	const { id } = req.params;
+
+	const book = await axios.get(`${API_URL}/api/review/${id}`);
+
+	const bookData = book.data;
+	console.log("Book data:", bookData);
+	res.render("edit-review.ejs", { bookData });
+
+	// res.render("edit-review.ejs", { id, title, isbn, author, published_date, review });
+
+	// try {
+	// 	await axios.put(`${API_URL}/api/edit-review/${id}`, { title, isbn, author, published_date, review });
+	// 	res.status(200).json({ message: "Review updated successfully." });
+	// } catch (error) {
+	// 	console.error("Error editing review:", error);
+	// 	res.status(500).json({ error: "An error occurred while editing the review." });
+	// }
+});
+
 app.listen(MAIN_PORT, () => {
 	console.log(`Server is running on port ${MAIN_PORT}`);
 });

@@ -40,11 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	// Edit button functionality
 	document.querySelectorAll(".edit-button").forEach((button) => {
 		button.addEventListener("click", function (e) {
-			e.preventDefault;
+			e.preventDefault();
 			e.stopPropagation(); // Prevent triggering the book click event
 			let reviewId = this.closest("tr").getAttribute("data-id");
-			// console.log("Edit button clicked for review ID:", reviewId);
-			// window.location.href = `/edit-review/${reviewId}`;
+
+			window.location.href = `/books/edit/${reviewId}`;
 		});
 	});
 
