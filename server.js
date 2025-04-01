@@ -22,6 +22,26 @@ app.get("/", async (req, res) => {
 	res.render("index.ejs", { ownedBooks: ownedBooks.data });
 });
 
+// Render book edit page
+app.get("/books/edit/:id", async (req, res) => {
+	// Get the id of the book to edit from the URL
+	const { id } = req.params;
+
+	// Retrieve book data from API using the id
+	try {
+		const book = await axios.get(`${API_URL}/api/review/${id}`);
+
+		// Store the book data in a variable
+		const bookData = book.data;
+
+		// Render the edit-review page with the book data
+		res.render("edit-review.ejs", { bookData });
+	} catch (error) {
+		console.error("Error retrieving book data:", error.message);
+		res.status(500).send("Error retrieving book data.");
+	}
+});
+
 // Retrieve book data from API
 app.post("/search", async (req, res) => {
 	const { query } = req.body;
@@ -70,26 +90,6 @@ app.post("/reviews", async (req, res) => {
 
 		res.redirect("/");
 	}
-});
-
-app.get("/books/edit/:id", async (req, res) => {
-	const { id } = req.params;
-
-	const book = await axios.get(`${API_URL}/api/review/${id}`);
-
-	const bookData = book.data;
-	// console.log("Book data:", bookData);
-	res.render("edit-review.ejs", { bookData });
-
-	// res.render("edit-review.ejs", { id, title, isbn, author, published_date, review });
-
-	// try {
-	// 	await axios.put(`${API_URL}/api/edit-review/${id}`, { title, isbn, author, published_date, review });
-	// 	res.status(200).json({ message: "Review updated successfully." });
-	// } catch (error) {
-	// 	console.error("Error editing review:", error);
-	// 	res.status(500).json({ error: "An error occurred while editing the review." });
-	// }
 });
 
 app.listen(MAIN_PORT, () => {
