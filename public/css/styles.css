@@ -240,15 +240,17 @@ header {
 }
 
 .review-edit-form {
-  grid-column: 1/-1;
+  grid-column: 3/5;
 }
 .review-edit-form h2 ~ * {
   margin-bottom: 1em;
 }
 .review-edit-form textarea {
-  width: 30%;
   height: 100px;
   padding: 10px;
+}
+.review-edit-form button {
+  padding: 0.2em;
 }
 
 /*# sourceMappingURL=styles.css.map */
