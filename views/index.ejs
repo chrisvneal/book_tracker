@@ -111,6 +111,7 @@
                                         <th>Author</th>
                                         <th>ISBN</th>
                                         <th>Published Year</th>
+                                        <th>Review</th>
                                         <th>Edit / Delete</th> <!-- New column for buttons -->
                                     </tr>
                                 </thead>
@@ -130,11 +131,14 @@
                                                 <%= book.published_date || "Not available." %>
                                             </td>
                                             <td>
+                                                <%= book.review || "No review available." %>
+                                            </td>
+                                            <td>
                                                 <!-- Edit Button -->
                                                 <form action="/books/edit/<%= book.id %>" method="POST"
                                                     style="display: inline;">
                                                     <input type="hidden" name="_method" value="PUT">
-                                                    <button type="submit" class="mr-1 edit-button">Edit</button>
+                                                    <button type="submit" class="mr-1 edit-button">Edit Review</button>
                                                 </form>
 
                                                 <!-- Delete Button -->
