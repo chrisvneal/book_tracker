@@ -118,19 +118,19 @@
                                 <tbody>
                                     <% ownedBooks.forEach(book=> { %>
                                         <tr data-id="<%= book.id %>" data-title="<%= book.title %>">
-                                            <td>
+                                            <td class="book-title">
                                                 <%= book.title %>
                                             </td>
-                                            <td>
+                                            <td class="book-author">
                                                 <%= book.author %>
                                             </td>
-                                            <td>
+                                            <td class="book-isbn">
                                                 <%= book.isbn || "Not available." %>
                                             </td>
-                                            <td>
+                                            <td class="book-published-date">
                                                 <%= book.published_date || "Not available." %>
                                             </td>
-                                            <td>
+                                            <td class="book-review">
                                                 <%= book.review || "No review available." %>
                                             </td>
                                             <td>
