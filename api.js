@@ -206,6 +206,41 @@ app.patch("/api/edit-review/:id", async (req, res) => {
 	}
 });
 
+app.delete("/api/delete/:id", async (req, res) => {
+	const { id } = req.params;
+
+	let deleteReview = {
+		text: "DELETE FROM reviews WHERE id = $1",
+		values: [id],
+	};
+
+	let deleteBook = {
+		text: "DELETE FROM books WHERE id = $1",
+		values: [id],
+	};
+
+	try {
+		await db.query("BEGIN"); // Start transaction
+		await db.query(deleteReview.text, deleteReview.values);
+		await db.query(deleteBook.text, deleteBook.values);
+		await db.query("COMMIT"); // Commit transaction
+		// console.log("Book and its reviews deleted successfully.");
+		res.status(200).json({ message: "Deleted successfully" });
+	} catch (error) {
+		await db.query("ROLLBACK"); // Rollback transaction in case of error
+		console.error("Error deleting book and reviews:", error.message);
+		return res.status(500).send("Error deleting book and reviews.");
+	}
+
+	// try {
+	// 	await db.query(deleteReview.text, deleteReview.values);
+	// 	console.log("Review deleted successfully.");
+	// } catch (error) {
+	// 	console.error("Error deleting review:", error.message);
+	// 	return res.status(500).send("Error deleting review.");
+	// }
+});
+
 // listen on the API_PORT for incoming requests
 app.listen(API_PORT, () => {
 	console.log(`Server is running on port ${API_PORT}`);
