@@ -36,6 +36,24 @@ async function getTitleISBN(title) {
 	}
 }
 
+// Fetch all books and reviews from database
+app.get("/api/books", async (req, res) => {
+	const query = {
+		text: "SELECT  books.id AS id, books.isbn AS isbn, books.title AS title, books.author AS author, books.published_date AS published_date,  reviews.review_text AS review FROM books LEFT JOIN reviews ON books.id = reviews.id ORDER BY books.title ASC;",
+	};
+
+	try {
+		// Fetch all books and reviews, return data as JSON
+		let results = await db.query(query.text);
+
+		res.status(200).json(results.rows);
+	} catch (error) {
+		// database error
+		console.error(error.message);
+		res.status(500).json({ error: "An error occurred while fetching books." });
+	}
+});
+
 // Fetch book details and review from database by "id"
 app.get("/api/book/:id", async (req, res) => {
 	const { id } = req.params;
@@ -63,22 +81,7 @@ app.get("/api/book/:id", async (req, res) => {
 	}
 });
 
-app.get("/api/books", async (req, res) => {
-	const getReviews = {
-		text: "SELECT  books.id AS id,books.isbn AS isbn, books.title AS title, books.author AS author, books.published_date AS published_date,  reviews.review_text AS review FROM books LEFT JOIN reviews ON books.book_id = reviews.book_id ORDER BY books.title ASC;",
-	};
-
-	try {
-		let results = await db.query(getReviews.text);
-		// console.log(results.rows);
-		res.status(200).json(results.rows);
-	} catch (error) {
-		console.error(error.message);
-	}
-});
-
-// Search for book by ISBN or title
-
+// Fetch book details and review from database by "isbn" or "title"
 app.post("/api/search", async (req, res) => {
 	const { isbn, query, limit } = req.body;
 
@@ -136,6 +139,7 @@ app.post("/api/search", async (req, res) => {
 		// send search results as JSON to server
 		res.status(200).json(searchResults);
 	} catch (error) {
+		console.error("Error fetching book data:", error.message);
 		res.status(400).json({ message: error.message });
 	}
 });
