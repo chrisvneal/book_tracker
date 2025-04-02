@@ -7,9 +7,10 @@ import methodOverride from "method-override";
 dotenv.config();
 
 const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(bodyParser.json());
 app.use(methodOverride("_method"));
 
 const MAIN_PORT = process.env.MAIN_PORT || 3000;
@@ -20,6 +21,26 @@ app.get("/", async (req, res) => {
 	const ownedBooks = await axios.get(`${API_URL}/api/reviews`);
 
 	res.render("index.ejs", { ownedBooks: ownedBooks.data });
+});
+
+// Render book edit page
+app.get("/books/edit/:id", async (req, res) => {
+	// Get the id of the book to edit from the URL
+	const { id } = req.params;
+
+	// Retrieve book data from API using the id
+	try {
+		const book = await axios.get(`${API_URL}/api/review/${id}`);
+
+		// Store the book data in a variable
+		const bookData = book.data;
+
+		// Render the edit-review page with the book data
+		res.render("edit-review.ejs", { bookData });
+	} catch (error) {
+		console.error("Error retrieving book data:", error.message);
+		res.status(500).send("Error retrieving book data.");
+	}
 });
 
 // Retrieve book data from API
@@ -69,6 +90,21 @@ app.post("/reviews", async (req, res) => {
 		}
 
 		res.redirect("/");
+	}
+});
+
+app.patch("/update-review", async (req, res) => {
+	const { review, id } = req.body;
+	// console.log("Update review:", review, id);
+	// console.log(req.body);
+	try {
+		// const { text, id } = req.body.review;
+		// console.log("Review:", text, id);
+		await axios.patch(`${API_URL}/api/edit-review/${id}`, { review });
+		res.redirect("/");
+	} catch (error) {
+		console.log(error.message);
+		res.status(500).json({ error: "An error occurred while updating the review." });
 	}
 });
 

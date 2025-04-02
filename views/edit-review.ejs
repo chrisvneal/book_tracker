@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+
+    <div class="container">
+        <header>
+            <h1>Book Review Tracker</h1>
+        </header>
+        <% if (locals.bookData) { %>
+
+            <div class="review-edit-form">
+                <h2>Edit Review for <span class="review-edit-form__title">
+                        <%= bookData.title %>
+                    </span>
+                </h2>
+
+                <p>Author: <%= bookData.author %>
+                </p>
+                <p>ISBN: <%= bookData.isbn %>
+                </p>
+                <p>Published Year: <%= bookData.published_date %>
+                </p>
+                <form action="/update-review?_method=PATCH" method="post">
+                    <input type="hidden" name="_method" value="PATCH">
+                    <input type="hidden" name="id" value="<%= bookData.id %>">
+                    <textarea id="review" name="review" rows="4"
+                        cols="50"><%= bookData.review || '' %></textarea><br><br>
+
+                    <button type="submit" class="update-button">Update Review</button>
+                </form>
+            </div>
+
+            <%} %>
+    </div>
+
+    </body>
+
+    </html>

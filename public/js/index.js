@@ -40,11 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	// Edit button functionality
 	document.querySelectorAll(".edit-button").forEach((button) => {
 		button.addEventListener("click", function (e) {
-			e.preventDefault;
+			e.preventDefault();
 			e.stopPropagation(); // Prevent triggering the book click event
 			let reviewId = this.closest("tr").getAttribute("data-id");
-			// console.log("Edit button clicked for review ID:", reviewId);
-			// window.location.href = `/edit-review/${reviewId}`;
+
+			window.location.href = `/books/edit/${reviewId}`;
 		});
 	});
 
@@ -60,29 +60,47 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
+// Update button functionality
+
+// if (document.querySelector(".update-button")) {
+// 	document.querySelector(".update-button").addEventListener("click", async function (e) {
+// 		e.preventDefault(); // Prevent default action of the button
+// 		e.stopPropagation(); // Prevent triggering the book click event
+// 		let reviewId = this.closest("tr").getAttribute("data-id");
+
+// 		try {
+// 			await axios.patch("/update-review");
+// 		} catch (error) {
+// 			console.error("Error updating review:", error);
+// 		}
+// 	});
+// }
+
 let hiddenInput = document.querySelector("#searched");
 
 let form = document.querySelector("#search-form");
 
-document.querySelector(".book-search-results").addEventListener("click", function (e) {
-	let book = e.target.closest(".book"); // Find the closest book item
-	if (!book) return; // Stop if clicked outside book items
+if (document.querySelector(".book-search-results")) {
+	document.querySelector(".book-search-results").addEventListener("click", function (e) {
+		let book = e.target.closest(".book"); // Find the closest book item
+		if (!book) return; // Stop if clicked outside book items
 
-	let reviewSection = document.querySelector(".review-section");
+		let reviewSection = document.querySelector(".review-section");
 
-	document.querySelectorAll(".book").forEach(function (bookItem) {
-		bookItem.classList.remove("selected");
-	});
-	book.classList.add("selected");
+		document.querySelectorAll(".book").forEach(function (bookItem) {
+			bookItem.classList.remove("selected");
+		});
+		book.classList.add("selected");
 
-	populateReviewHeader(book);
+		populateReviewHeader(book);
 
-	if (!reviewSection) {
-		console.error("Review section not found in the DOM.");
-		return;
-	} else {
-		if (reviewSection.classList.contains("hidden")) {
-			reviewSection.classList.remove("hidden");
+		if (!reviewSection) {
+			console.error("Review section not found in the DOM.");
+			return;
+		} else {
+			if (reviewSection.classList.contains("hidden")) {
+				reviewSection.classList.remove("hidden");
+			}
 		}
-	}
-});
+	});
+}

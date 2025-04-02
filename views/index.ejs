@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Review Tracker</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-
-<body>
+<%- include('partials/header') %>
     <div class="container">
         <header>
             <h1>Book Review Tracker</h1>
@@ -118,26 +103,25 @@
                                 <tbody>
                                     <% ownedBooks.forEach(book=> { %>
                                         <tr data-id="<%= book.id %>" data-title="<%= book.title %>">
-                                            <td>
+                                            <td class="book-title">
                                                 <%= book.title %>
                                             </td>
-                                            <td>
+                                            <td class="book-author">
                                                 <%= book.author %>
                                             </td>
-                                            <td>
+                                            <td class="book-isbn">
                                                 <%= book.isbn || "Not available." %>
                                             </td>
-                                            <td>
+                                            <td class="book-published-date">
                                                 <%= book.published_date || "Not available." %>
                                             </td>
-                                            <td>
-                                                <%= book.review || "No review available." %>
+                                            <td class="book-review">
+                                                <%= book.review || "" %>
                                             </td>
                                             <td>
                                                 <!-- Edit Button -->
-                                                <form action="/books/edit/<%= book.id %>" method="POST"
-                                                    style="display: inline;">
-                                                    <input type="hidden" name="_method" value="PUT">
+                                                <form style="display: inline;">
+                                                    <!-- <input type="hidden" name="_method" value="PUT"> -->
                                                     <button type="submit" class="mr-1 edit-button">Edit Review</button>
                                                 </form>
 
@@ -169,6 +153,6 @@
 
     <script src="js/index.js"></script>
 
-</body>
+    </body>
 
-</html>
+    </html>
