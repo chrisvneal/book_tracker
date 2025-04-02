@@ -189,7 +189,6 @@ app.get("/api/review/:id", async (req, res) => {
 app.patch("/api/edit-review/:id", async (req, res) => {
 	const { id } = req.params;
 	const { review } = req.body;
-	// console.log("Update review:", review, id);
 
 	// update review in database
 	let updateReview = {
@@ -231,14 +230,6 @@ app.delete("/api/delete/:id", async (req, res) => {
 		console.error("Error deleting book and reviews:", error.message);
 		return res.status(500).send("Error deleting book and reviews.");
 	}
-
-	// try {
-	// 	await db.query(deleteReview.text, deleteReview.values);
-	// 	console.log("Review deleted successfully.");
-	// } catch (error) {
-	// 	console.error("Error deleting review:", error.message);
-	// 	return res.status(500).send("Error deleting review.");
-	// }
 });
 
 // listen on the API_PORT for incoming requests
