@@ -124,7 +124,8 @@ app.delete("/books/delete/:id", async (req, res) => {
 			console.log("Books not found.");
 		}
 
-		res.render("index.ejs", { ownedBooks: books.data });
+		// res.render("index.ejs", { ownedBooks: books.data });
+		res.redirect("/");
 		// res.status(200).json({ message: "Review deleted successfully." });
 	} catch (error) {
 		console.error("Error deleting review:", error.message);
