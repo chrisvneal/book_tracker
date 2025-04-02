@@ -48,10 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
-let hiddenInput = document.querySelector("#searched");
-
-let form = document.querySelector("#search-form");
-
 // If search returns results, make each book clickable
 const bookSearchResults = document.querySelector(".book-search-results");
 

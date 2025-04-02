@@ -91,6 +91,10 @@ ul {
   list-style-type: none;
 }
 
+button {
+  cursor: pointer;
+}
+
 /********** Sections **********/
 .container {
   width: 80%;
@@ -178,9 +182,6 @@ header {
 .owned-books form {
   display: inline;
 }
-.owned-books form button {
-  border-radius: 3px;
-}
 
 .owned-books h2 {
   font-size: 1.5em;
@@ -211,7 +212,7 @@ header {
 }
 
 .owned-books tr:hover td:not(:last-child) {
-  background-color: #f1f6fd;
+  background-color: #f3f9ff;
 }
 
 .owned-books td {
@@ -233,31 +234,30 @@ header {
 .owned-books table td:last-child {
   border: none;
   text-align: right;
-  width: 250px;
+  width: 210px;
   display: flex;
   justify-content: space-around;
 }
 
 .owned-books form button {
-  width: 100px;
   border: 1px solid #d3d3d3;
   background-color: #f5f5f5;
-  padding: 0.2em;
+  padding: 0.2em 0.5em;
   transition: all 0.2s ease-in-out;
   color: #333;
-  cursor: pointer;
+  border-radius: 3px;
 }
 
 .owned-books form .edit-button:hover {
-  background-color: #007bff; /* Bootstrap blue */
+  background-color: #409cff; /* Bootstrap blue */
   color: white;
-  border-color: #0069d9;
+  border-color: #0d82ff;
 }
 
 .owned-books form .delete-button:hover {
-  background-color: #dc3545; /* Bootstrap red */
+  background-color: #e9818c; /* Bootstrap red */
   color: white;
-  border-color: #c82333;
+  border-color: #e56c78;
 }
 
 td.book-title {

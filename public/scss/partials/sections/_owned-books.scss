@@ -8,9 +8,7 @@
 .owned-books form {
     display: inline;
 
-    button {
-        border-radius: 3px;
-    }
+    
 }
 
 .owned-books h2 {
@@ -42,7 +40,7 @@
 }
 
 .owned-books tr:hover td:not(:last-child) {
-    background-color: lighten(#a7c9f0, 17%);
+    background-color: lighten($btn-blue-light, 35%);
 }
 
 .owned-books td {
@@ -64,7 +62,7 @@
 .owned-books table td:last-child {  
     border: none;
     text-align: right;
-    width: 250px;
+    width: 210px;
     display: flex;
     justify-content: space-around;
 }
@@ -72,27 +70,27 @@
 
 
 .owned-books form button {   
-    width: 100px;
+    // width: 100px;
     border: 1px solid #d3d3d3;
     background-color: #f5f5f5;
-    padding: 0.2em;
+    padding: 0.2em .5em;
     transition: all 0.2s ease-in-out;
     color: #333;
-    cursor: pointer;
+    border-radius: 3px;
 }
 
 
 
 .owned-books form .edit-button:hover {
-    background-color: #007bff; /* Bootstrap blue */
+    background-color: $btn-blue-light; /* Bootstrap blue */
     color: white;
-    border-color: #0069d9;
+    border-color: $btn-blue;
 }
 
 .owned-books form .delete-button:hover {
-    background-color: #dc3545; /* Bootstrap red */
+    background-color: $danger-red-light; /* Bootstrap red */
     color: white;
-    border-color: #c82333;
+    border-color: $danger-red;
 }
 
 td.book-title {
