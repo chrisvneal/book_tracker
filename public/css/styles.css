@@ -93,6 +93,7 @@ ul {
 
 button {
   cursor: pointer;
+  padding: 0.2em 0.5em;
 }
 
 /********** Sections **********/
@@ -242,7 +243,6 @@ header {
 .owned-books form button {
   border: 1px solid #d3d3d3;
   background-color: #f5f5f5;
-  padding: 0.2em 0.5em;
   transition: all 0.2s ease-in-out;
   color: #333;
   border-radius: 3px;
@@ -255,9 +255,9 @@ header {
 }
 
 .owned-books form .delete-button:hover {
-  background-color: #e9818c; /* Bootstrap red */
+  background-color: #e35f6c; /* Bootstrap red */
   color: white;
-  border-color: #e56c78;
+  border-color: #e15664;
 }
 
 td.book-title {
@@ -275,11 +275,8 @@ td.book-title {
   height: 100px;
   padding: 10px;
 }
-.review-edit-form button {
-  padding: 0.2em;
-}
 .review-edit-form .review-edit-form__title {
-  color: #3399ff;
+  color: #409cff;
 }
 
 /*# sourceMappingURL=styles.css.map */
