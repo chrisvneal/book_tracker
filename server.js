@@ -93,7 +93,7 @@ app.post("/reviews", async (req, res) => {
 	}
 });
 
-app.patch("/update-review", async (req, res) => {
+app.patch("/edit-review", async (req, res) => {
 	const { review, id } = req.body;
 	// console.log("Update review:", review, id);
 	// console.log(req.body);
