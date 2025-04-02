@@ -216,13 +216,30 @@ app.delete("/api/delete/:id", async (req, res) => {
 		values: [id],
 	};
 
+	let deleteBook = {
+		text: "DELETE FROM books WHERE id = $1",
+		values: [id],
+	};
+
 	try {
+		await db.query("BEGIN"); // Start transaction
 		await db.query(deleteReview.text, deleteReview.values);
-		console.log("Review deleted successfully.");
+		await db.query(deleteBook.text, deleteBook.values);
+		await db.query("COMMIT"); // Commit transaction
+		console.log("Book and its reviews deleted successfully.");
 	} catch (error) {
-		console.error("Error deleting review:", error.message);
-		return res.status(500).send("Error deleting review.");
+		await db.query("ROLLBACK"); // Rollback transaction in case of error
+		console.error("Error deleting book and reviews:", error.message);
+		return res.status(500).send("Error deleting book and reviews.");
 	}
+
+	// try {
+	// 	await db.query(deleteReview.text, deleteReview.values);
+	// 	console.log("Review deleted successfully.");
+	// } catch (error) {
+	// 	console.error("Error deleting review:", error.message);
+	// 	return res.status(500).send("Error deleting review.");
+	// }
 });
 
 // listen on the API_PORT for incoming requests

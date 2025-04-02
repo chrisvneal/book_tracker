@@ -108,6 +108,19 @@ app.patch("/update-review", async (req, res) => {
 	}
 });
 
+app.delete("/books/delete/:id", async (req, res) => {
+	const { id } = req.params;
+	try {
+		await axios.delete(`${API_URL}/api/delete/${id}`);
+		// res.status(204).send();
+		res.redirect("/reload=true");
+		// res.render("index.ejs");
+	} catch (error) {
+		console.error("Error deleting review:", error.message);
+		res.status(500).json({ error: "An error occurred while deleting the review." });
+	}
+});
+
 app.listen(MAIN_PORT, () => {
 	console.log(`Server is running on port ${MAIN_PORT}`);
 });
