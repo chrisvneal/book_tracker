@@ -52,15 +52,15 @@ if (document.querySelector(".book-search-results")) {
 		let book = e.target.closest(".book"); // Find the closest book item
 		if (!book) return; // Stop if clicked outside book items
 
-		let reviewSection = document.querySelector(".review-section");
-
 		document.querySelectorAll(".book").forEach(function (bookItem) {
 			bookItem.classList.remove("selected");
 		});
 		book.classList.add("selected");
 
-		// populate review section before showing it
+		// Populate review section before showing it
 		populateReviewSection(book);
+
+		let reviewSection = document.querySelector(".review-section");
 
 		if (!reviewSection) {
 			console.error("Review section not found in the DOM.");
