@@ -63,7 +63,7 @@ app.get("/api/book/:id", async (req, res) => {
 	}
 });
 
-app.get("/api/reviews", async (req, res) => {
+app.get("/api/books", async (req, res) => {
 	const getReviews = {
 		text: "SELECT  books.id AS id,books.isbn AS isbn, books.title AS title, books.author AS author, books.published_date AS published_date,  reviews.review_text AS review FROM books LEFT JOIN reviews ON books.book_id = reviews.book_id ORDER BY books.title ASC;",
 	};

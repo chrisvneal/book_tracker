@@ -19,7 +19,7 @@ const API_URL = process.env.API_URL || "http://localhost:4000";
 // Render "main" page
 app.get("/", async (req, res) => {
 	// Retrieve book data from API, then...
-	const ownedBooks = await axios.get(`${API_URL}/api/reviews`);
+	const ownedBooks = await axios.get(`${API_URL}/api/books`);
 
 	// ...render main page, providing retrieved book data
 	res.render("index.ejs", { ownedBooks: ownedBooks.data });
@@ -51,7 +51,7 @@ app.post("/search", async (req, res) => {
 	const isISBN = (/^[\d-]+$/.test(query) && query.replace(/-/g, "").length === 10) || query.replace(/-/g, "").length === 13;
 
 	try {
-		const ownedBooks = await axios.get(`${API_URL}/api/reviews`);
+		const ownedBooks = await axios.get(`${API_URL}/api/books`);
 
 		// retrieve results from API
 
@@ -117,7 +117,7 @@ app.delete("/books/delete/:id", async (req, res) => {
 		// console.log("server Delete review ID:", id);
 
 		// res.status(204).send("works");
-		const books = await axios.get(`${API_URL}/api/reviews`);
+		const books = await axios.get(`${API_URL}/api/books`);
 		if (books) {
 			console.log("Books:", books.data);
 		} else {
