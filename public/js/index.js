@@ -1,5 +1,5 @@
 // Populate the review section with the selected book's details
-function populateReviewSection(book) {
+function showReviewSection(book) {
 	// Get review book title, author name, isbn, larger size from selected book
 	let title, author, isbn, published_date, cover_id, cover_url_large;
 
@@ -28,6 +28,11 @@ function populateReviewSection(book) {
 	document.querySelector(".review-book-image img").setAttribute("src", cover_url_large);
 
 	// document.querySelector(".review-book").setAttribute("data-id", book.closest(".book").getAttribute("data-id"));
+	let reviewSection = document.querySelector(".review-section");
+
+	if (reviewSection.classList.contains("hidden")) {
+		reviewSection.classList.remove("hidden");
+	}
 }
 
 // Actions to take when the page loads
@@ -47,23 +52,17 @@ let hiddenInput = document.querySelector("#searched");
 
 let form = document.querySelector("#search-form");
 
-if (document.querySelector(".book-search-results")) {
-	document.querySelector(".book-search-results").addEventListener("click", function (e) {
-		let book = e.target.closest(".book"); // Find the closest book item
-		if (!book) return; // Stop if clicked outside book items
+// If search returns results, make each book clickable
+const bookSearchResults = document.querySelector(".book-search-results");
 
-		document.querySelectorAll(".book").forEach(function (bookItem) {
-			bookItem.classList.remove("selected");
-		});
-		book.classList.add("selected");
+bookSearchResults?.addEventListener("click", (e) => {
+	const book = e.target.closest(".book");
+	if (!book) return;
 
-		// Populate review section before showing it
-		populateReviewSection(book);
+	// Clear "selected" class from all books and add it to the clicked book
+	document.querySelectorAll(".book.selected").forEach((bookItem) => bookItem.classList.remove("selected"));
+	book.classList.add("selected");
 
-		let reviewSection = document.querySelector(".review-section");
-
-		if (reviewSection.classList.contains("hidden")) {
-			reviewSection.classList.remove("hidden");
-		}
-	});
-}
+	// Show the review section with the selected book's details
+	showReviewSection(book);
+});
