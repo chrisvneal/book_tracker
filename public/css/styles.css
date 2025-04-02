@@ -74,6 +74,14 @@ h1 {
   margin-right: 0.25rem;
 }
 
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.mr-3 {
+  margin-right: 0.75rem;
+}
+
 body {
   font-family: Inter, sans-serif;
   color: #505057;
@@ -170,6 +178,9 @@ header {
 .owned-books form {
   display: inline;
 }
+.owned-books form button {
+  border-radius: 3px;
+}
 
 .owned-books h2 {
   font-size: 1.5em;
@@ -195,8 +206,12 @@ header {
   font-weight: bold;
 }
 
-.owned-books tr:nth-child(even) {
-  background-color: #fafafa;
+.owned-books td {
+  transition: all 0.1s ease-in;
+}
+
+.owned-books tr:hover td:not(:last-child) {
+  background-color: #f1f6fd;
 }
 
 .owned-books td {
@@ -219,6 +234,7 @@ header {
 .owned-books table td:last-child {
   border: none;
   text-align: right;
+  width: 260px;
 }
 
 .owned-books form button {
@@ -241,6 +257,10 @@ header {
   background-color: #dc3545; /* Bootstrap red */
   color: white;
   border-color: #c82333;
+}
+
+td.book-title {
+  width: 400px;
 }
 
 .review-edit-form {
