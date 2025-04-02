@@ -110,11 +110,22 @@ app.patch("/update-review", async (req, res) => {
 
 app.delete("/books/delete/:id", async (req, res) => {
 	const { id } = req.params;
+	// console.log("srver hit up");
+
 	try {
 		await axios.delete(`${API_URL}/api/delete/${id}`);
-		// res.status(204).send();
-		res.redirect("/reload=true");
-		// res.render("index.ejs");
+		// console.log("server Delete review ID:", id);
+
+		// res.status(204).send("works");
+		const books = await axios.get(`${API_URL}/api/reviews`);
+		if (books) {
+			console.log("Books:", books.data);
+		} else {
+			console.log("Books not found.");
+		}
+
+		res.render("index.ejs", { ownedBooks: books.data });
+		// res.status(200).json({ message: "Review deleted successfully." });
 	} catch (error) {
 		console.error("Error deleting review:", error.message);
 		res.status(500).json({ error: "An error occurred while deleting the review." });
