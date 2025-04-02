@@ -7,19 +7,21 @@ import methodOverride from "method-override";
 dotenv.config();
 
 const app = express();
+
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(bodyParser.json());
-app.use(methodOverride("_method"));
+app.use(methodOverride("_method")); // helps override form methods
 
 const MAIN_PORT = process.env.MAIN_PORT || 3000;
 const API_URL = process.env.API_URL || "http://localhost:4000";
 
 // Render main page
 app.get("/", async (req, res) => {
+	// Retrieve book data from API, then...
 	const ownedBooks = await axios.get(`${API_URL}/api/reviews`);
 
+	// ...render main page, providing retrieved book data
 	res.render("index.ejs", { ownedBooks: ownedBooks.data });
 });
 
