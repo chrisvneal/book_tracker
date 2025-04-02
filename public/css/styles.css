@@ -241,10 +241,6 @@ header {
 
 .review-edit-form {
   grid-column: 3/5;
-  grid-row: 4;
-}
-.review-edit-form h2 {
-  color: #b7b7bc;
 }
 .review-edit-form h2 ~ * {
   margin-bottom: 1em;
@@ -255,9 +251,6 @@ header {
 }
 .review-edit-form button {
   padding: 0.2em;
-}
-.review-edit-form .review-edit-form__title {
-  color: #3399ff;
 }
 
 /*# sourceMappingURL=styles.css.map */
