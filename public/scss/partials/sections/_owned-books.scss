@@ -55,11 +55,8 @@
     color: #555;
 }
 
-.owned-books table th:last-child {
-    outline: 1px solid red;
+.owned-books table th:last-child {   
     border: none;
-    // width: min-content;
-    // width: 50%;
     width: 220px;
     visibility: hidden;
 }
@@ -67,7 +64,9 @@
 .owned-books table td:last-child {  
     border: none;
     text-align: right;
-    width: 260px;
+    width: 250px;
+    display: flex;
+    justify-content: space-around;
 }
 
 

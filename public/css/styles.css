@@ -79,7 +79,7 @@ h1 {
 }
 
 .mr-3 {
-  margin-right: 0.75rem;
+  margin-right: 1rem;
 }
 
 body {
@@ -225,7 +225,6 @@ header {
 }
 
 .owned-books table th:last-child {
-  outline: 1px solid red;
   border: none;
   width: 220px;
   visibility: hidden;
@@ -234,7 +233,9 @@ header {
 .owned-books table td:last-child {
   border: none;
   text-align: right;
-  width: 260px;
+  width: 250px;
+  display: flex;
+  justify-content: space-around;
 }
 
 .owned-books form button {
