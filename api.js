@@ -208,8 +208,6 @@ app.patch("/api/edit-review/:id", async (req, res) => {
 
 app.delete("/api/delete/:id", async (req, res) => {
 	const { id } = req.params;
-	console.log("API delete review ID:", id);
-	// console.log("Delete review ID:", id);
 
 	let deleteReview = {
 		text: "DELETE FROM reviews WHERE id = $1",
@@ -226,7 +224,8 @@ app.delete("/api/delete/:id", async (req, res) => {
 		await db.query(deleteReview.text, deleteReview.values);
 		await db.query(deleteBook.text, deleteBook.values);
 		await db.query("COMMIT"); // Commit transaction
-		console.log("Book and its reviews deleted successfully.");
+		// console.log("Book and its reviews deleted successfully.");
+		res.status(200).json({ message: "Deleted successfully" });
 	} catch (error) {
 		await db.query("ROLLBACK"); // Rollback transaction in case of error
 		console.error("Error deleting book and reviews:", error.message);
