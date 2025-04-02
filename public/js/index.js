@@ -59,6 +59,7 @@ if (document.querySelector(".book-search-results")) {
 		});
 		book.classList.add("selected");
 
+		// populate review section before showing it
 		populateReviewSection(book);
 
 		if (!reviewSection) {
