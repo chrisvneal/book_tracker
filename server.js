@@ -7,10 +7,10 @@ import methodOverride from "method-override";
 dotenv.config();
 
 const app = express();
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
+app.use(bodyParser.json());
 
 const MAIN_PORT = process.env.MAIN_PORT || 3000;
 const API_URL = process.env.API_URL || "http://localhost:4000";
@@ -92,17 +92,18 @@ app.post("/reviews", async (req, res) => {
 	}
 });
 
-app.post("/update-review", (req, res) => {
+app.patch("/update-review", async (req, res) => {
 	const { review, id } = req.body;
 	// console.log("Update review:", review, id);
 	// console.log(req.body);
 	try {
 		// const { text, id } = req.body.review;
 		// console.log("Review:", text, id);
-		axios.patch(`${API_URL}/api/edit-review/${id}`, { review });
+		await axios.patch(`${API_URL}/api/edit-review/${id}`, { review });
 		res.redirect("/");
 	} catch (error) {
 		console.log(error.message);
+		res.status(500).json({ error: "An error occurred while updating the review." });
 	}
 });
 

@@ -18,9 +18,8 @@
                 </p>
                 <p>Published Year: <%= bookData.published_date %>
                 </p>
-                <form action="/update-review" method="post">
+                <form action="/update-review?_method=PATCH" method="post">
                     <input type="hidden" name="id" value="<%= bookData.id %>">
-                    <input type="hidden" name="_method" value="PATCH">
                     <!-- <label for="review">Review:</label><br> -->
                     <textarea id="review" name="review" rows="4"
                         cols="50"><%= bookData.review || '' %></textarea><br><br>
