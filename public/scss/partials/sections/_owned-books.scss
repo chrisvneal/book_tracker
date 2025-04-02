@@ -1,8 +1,7 @@
 .owned-books {
     grid-column: 1 / -1;
-    grid-row: 4;
+    grid-row: 3;
     border-top: 1px solid #d3d3d3;
-    padding-top: 1em;
 }
 
 .owned-books form {
@@ -13,13 +12,13 @@
 
 .owned-books h2 {
     font-size: 1.5em;
-    margin-bottom: 0.5em;
+    margin: 0.5em 0;
 }
 
 .owned-books table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1em 0;
+    // margin: 1em 0;
     font-size: 1em;
     font-family: Arial, sans-serif;
 }

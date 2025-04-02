@@ -82,6 +82,14 @@ h1 {
   margin-right: 1rem;
 }
 
+.ml-l {
+  margin-left: 0.25em;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
 body {
   font-family: Inter, sans-serif;
   color: #505057;
@@ -103,7 +111,7 @@ button {
   padding-top: 2em;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 1.5em;
+  gap: 0.5em;
 }
 
 header {
@@ -114,7 +122,7 @@ header {
 .search-form {
   grid-column: 1/-1;
   grid-row: 2;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 .search-form input, .search-form button {
   height: 40px;
@@ -175,9 +183,8 @@ header {
 
 .owned-books {
   grid-column: 1/-1;
-  grid-row: 4;
+  grid-row: 3;
   border-top: 1px solid #d3d3d3;
-  padding-top: 1em;
 }
 
 .owned-books form {
@@ -186,13 +193,12 @@ header {
 
 .owned-books h2 {
   font-size: 1.5em;
-  margin-bottom: 0.5em;
+  margin: 0.5em 0;
 }
 
 .owned-books table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1em 0;
   font-size: 1em;
   font-family: Arial, sans-serif;
 }
