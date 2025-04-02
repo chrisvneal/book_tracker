@@ -20,7 +20,7 @@ const db = new pg.Client({
 
 db.connect();
 
-// Fetch ISBN based on book title
+// Function to fetch ISBN based on book title
 async function getTitleISBN(title) {
 	try {
 		const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title}`);
@@ -144,11 +144,11 @@ app.post("/api/search", async (req, res) => {
 	}
 });
 
+// Post selected book and review to database
 app.post("/api/submit-review", async (req, res) => {
 	const { book_id, isbn, title, author, published_date, review } = req.body;
 
 	// check if book is in database
-
 	let getBook = {
 		text: "SELECT * FROM books WHERE book_id = $1 AND isbn = $2",
 		values: [String(book_id), String(isbn)],
@@ -194,6 +194,7 @@ app.post("/api/submit-review", async (req, res) => {
 	}
 });
 
+// Edit book review by "id"
 app.patch("/api/edit-review/:id", async (req, res) => {
 	const { id } = req.params;
 	const { review } = req.body;
@@ -213,6 +214,7 @@ app.patch("/api/edit-review/:id", async (req, res) => {
 	}
 });
 
+// Delete book and its review by "id"
 app.delete("/api/delete/:id", async (req, res) => {
 	const { id } = req.params;
 
@@ -227,11 +229,11 @@ app.delete("/api/delete/:id", async (req, res) => {
 	};
 
 	try {
-		await db.query("BEGIN"); // Start transaction
+		await db.query("BEGIN");
 		await db.query(deleteReview.text, deleteReview.values);
 		await db.query(deleteBook.text, deleteBook.values);
-		await db.query("COMMIT"); // Commit transaction
-		// console.log("Book and its reviews deleted successfully.");
+		await db.query("COMMIT");
+
 		res.status(200).json({ message: "Deleted successfully" });
 	} catch (error) {
 		await db.query("ROLLBACK"); // Rollback transaction in case of error
@@ -240,7 +242,7 @@ app.delete("/api/delete/:id", async (req, res) => {
 	}
 });
 
-// listen on the API_PORT for incoming requests
+// Listen on the API_PORT for incoming requests
 app.listen(API_PORT, () => {
 	console.log(`Server is running on port ${API_PORT}`);
 });

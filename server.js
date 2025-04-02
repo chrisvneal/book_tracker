@@ -64,16 +64,12 @@ app.post("/search", async (req, res) => {
 	}
 });
 
-app.post("/reviews", async (req, res) => {
-	// res.sendStatus(400).json({ error: "Book not found" });
-
+// Post selected book and review to database
+app.post("/books", async (req, res) => {
 	const { title, isbn, author, published_date, book_id, review } = req.body;
-
-	// save book to database if it isnt there, "books" table
 
 	try {
 		await axios.post(`${API_URL}/api/submit-review`, { title, isbn, author, published_date, book_id, review });
-		// console.log("Book review sent.");
 
 		res.redirect("/");
 	} catch (error) {
@@ -93,13 +89,11 @@ app.post("/reviews", async (req, res) => {
 	}
 });
 
+// Route to handle the form submission for editing a review
 app.patch("/edit-review", async (req, res) => {
 	const { review, id } = req.body;
-	// console.log("Update review:", review, id);
-	// console.log(req.body);
+
 	try {
-		// const { text, id } = req.body.review;
-		// console.log("Review:", text, id);
 		await axios.patch(`${API_URL}/api/edit-review/${id}`, { review });
 		res.redirect("/");
 	} catch (error) {
@@ -108,31 +102,22 @@ app.patch("/edit-review", async (req, res) => {
 	}
 });
 
+// Route to delete a book (and review) by "id"
 app.delete("/books/delete/:id", async (req, res) => {
 	const { id } = req.params;
-	// console.log("srver hit up");
 
 	try {
 		await axios.delete(`${API_URL}/api/delete/${id}`);
-		// console.log("server Delete review ID:", id);
 
-		// res.status(204).send("works");
-		const books = await axios.get(`${API_URL}/api/books`);
-		if (books) {
-			console.log("Books:", books.data);
-		} else {
-			console.log("Books not found.");
-		}
-
-		// res.render("index.ejs", { ownedBooks: books.data });
 		res.redirect("/");
-		// res.status(200).json({ message: "Review deleted successfully." });
 	} catch (error) {
+		// database error
 		console.error("Error deleting review:", error.message);
 		res.status(500).json({ error: "An error occurred while deleting the review." });
 	}
 });
 
+// Listen on the specified server port
 app.listen(MAIN_PORT, () => {
 	console.log(`Server is running on port ${MAIN_PORT}`);
 });
