@@ -62,13 +62,8 @@ if (document.querySelector(".book-search-results")) {
 
 		let reviewSection = document.querySelector(".review-section");
 
-		if (!reviewSection) {
-			console.error("Review section not found in the DOM.");
-			return;
-		} else {
-			if (reviewSection.classList.contains("hidden")) {
-				reviewSection.classList.remove("hidden");
-			}
+		if (reviewSection.classList.contains("hidden")) {
+			reviewSection.classList.remove("hidden");
 		}
 	});
 }
