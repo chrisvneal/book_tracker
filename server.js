@@ -7,10 +7,11 @@ import methodOverride from "method-override";
 dotenv.config();
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.use(methodOverride("_method"));
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(bodyParser.json());
+app.use(methodOverride("_method"));
 
 const MAIN_PORT = process.env.MAIN_PORT || 3000;
 const API_URL = process.env.API_URL || "http://localhost:4000";
