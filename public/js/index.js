@@ -49,15 +49,15 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 
 	// Delete button functionality
-	document.querySelectorAll(".delete-button").forEach((button) => {
-		button.addEventListener("click", function (e) {
-			e.preventDefault(); // Prevent default action of the button
-			e.stopPropagation(); // Prevent triggering the book click event
-			let reviewId = this.closest("tr").getAttribute("data-id");
-			// console.log("Delete button clicked for review ID:", reviewId);
-			// window.location.href = `/delete-review/${reviewId}`;
-		});
-	});
+	// document.querySelectorAll(".delete-button").forEach((button) => {
+	// 	button.addEventListener("click", function (e) {
+	// 		e.preventDefault(); // Prevent default action of the button
+	// 		e.stopPropagation(); // Prevent triggering the book click event
+	// 		let reviewId = this.closest("tr").getAttribute("data-id");
+	// 		// console.log("Delete button clicked for review ID:", reviewId);
+	// 		// window.location.href = `/delete-review/${reviewId}`;
+	// 	});
+	// });
 });
 
 // Update button functionality

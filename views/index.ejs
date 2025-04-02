@@ -126,11 +126,10 @@
                                                 </form>
 
                                                 <!-- Delete Button -->
-                                                <form action="/books/delete/<%= book.id %>" method="POST"
+                                                <form action="/books/delete/<%= book.id %>?_method=DELETE" method="POST"
                                                     style="display: inline;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <button type="submit" class="delete-button"
-                                                        onclick="return confirm('Are you sure you want to delete this book?');">Delete</button>
+                                                    <!-- <input type="hidden" name="_method" value="DELETE"> -->
+                                                    <button type="submit" class="delete-button">Delete</button>
                                                 </form>
                                             </td>
                                         </tr>

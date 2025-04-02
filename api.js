@@ -206,6 +206,25 @@ app.patch("/api/edit-review/:id", async (req, res) => {
 	}
 });
 
+app.delete("/api/delete/:id", async (req, res) => {
+	const { id } = req.params;
+	console.log("API delete review ID:", id);
+	// console.log("Delete review ID:", id);
+
+	let deleteReview = {
+		text: "DELETE FROM reviews WHERE id = $1",
+		values: [id],
+	};
+
+	try {
+		await db.query(deleteReview.text, deleteReview.values);
+		console.log("Review deleted successfully.");
+	} catch (error) {
+		console.error("Error deleting review:", error.message);
+		return res.status(500).send("Error deleting review.");
+	}
+});
+
 // listen on the API_PORT for incoming requests
 app.listen(API_PORT, () => {
 	console.log(`Server is running on port ${API_PORT}`);
