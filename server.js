@@ -25,16 +25,14 @@ app.get("/", async (req, res) => {
 	res.render("index.ejs", { ownedBooks: ownedBooks.data });
 });
 
-// Render "book edit" page
+// Render "edit book" page w/ selected book data
 app.get("/books/edit/:id", async (req, res) => {
 	// Get the id of the book to edit from the URL
 	const { id } = req.params;
 
-	// Retrieve book data from API using the id
+	// Retrieve book data from API using the id & store it in a variable
 	try {
 		const book = await axios.get(`${API_URL}/api/book/${id}`);
-
-		// Store the book data in a variable
 		const bookData = book.data;
 
 		// Render the edit-review page with the book data

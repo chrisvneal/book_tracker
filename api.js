@@ -36,6 +36,33 @@ async function getTitleISBN(title) {
 	}
 }
 
+// Fetch book details and review from database by "id"
+app.get("/api/book/:id", async (req, res) => {
+	const { id } = req.params;
+
+	let query = {
+		text: "SELECT books.id AS id, books.isbn AS isbn, books.title AS title, books.author AS author, books.published_date AS published_date, reviews.review_text AS review FROM books LEFT JOIN reviews ON books.id = reviews.id WHERE reviews.id = $1",
+		values: [id],
+	};
+
+	try {
+		let results = await db.query(query.text, query.values);
+
+		// if the book exists in the database, return the book details and review...
+		if (results.rows.length > 0) {
+			const { id, isbn, title, author, published_date, review } = results.rows[0];
+			return res.status(200).json({ id, isbn, title, author, published_date, review });
+		} else {
+			// ... otherwise, return a 404 error
+			return res.status(404).json({ message: "Book not found." });
+		}
+	} catch (error) {
+		// database error
+		console.error("Error fetching review:", error);
+		return res.status(500).json({ error: "An error occurred while fetching the review." });
+	}
+});
+
 app.get("/api/reviews", async (req, res) => {
 	const getReviews = {
 		text: "SELECT  books.id AS id,books.isbn AS isbn, books.title AS title, books.author AS author, books.published_date AS published_date,  reviews.review_text AS review FROM books LEFT JOIN reviews ON books.book_id = reviews.book_id ORDER BY books.title ASC;",
@@ -160,29 +187,6 @@ app.post("/api/submit-review", async (req, res) => {
 	} else {
 		console.log("Book already exists in database.");
 		return res.status(204).end();
-	}
-});
-
-app.get("/api/book/:id", async (req, res) => {
-	const { id } = req.params;
-
-	let query = {
-		text: "SELECT books.id AS id, books.isbn AS isbn, books.title AS title, books.author AS author, books.published_date AS published_date, reviews.review_text AS review FROM books LEFT JOIN reviews ON books.id = reviews.id WHERE reviews.id = $1",
-		values: [id],
-	};
-
-	try {
-		let results = await db.query(query.text, query.values);
-
-		if (results.rows.length > 0) {
-			const { id, isbn, title, author, published_date, review } = results.rows[0];
-			return res.status(200).json({ id, isbn, title, author, published_date, review });
-		} else {
-			return res.status(404).json({ message: "Review not found." });
-		}
-	} catch (error) {
-		console.error("Error fetching review:", error);
-		return res.status(500).json({ error: "An error occurred while fetching the review." });
 	}
 });
 
