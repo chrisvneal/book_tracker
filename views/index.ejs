@@ -120,14 +120,13 @@
                                             </td>
                                             <td>
                                                 <!-- Edit Button -->
-                                                <form style="display: inline;">
+                                                <form action="/books/edit/<%= book.id %>" method="GET">
                                                     <button type="submit" class="mr-1 edit-button">Edit Review</button>
                                                 </form>
 
                                                 <!-- Delete Button -->
-                                                <form action="/books/delete/<%= book.id %>?_method=DELETE" method="POST"
-                                                    style="display: inline;">
-                                                    <!-- <input type="hidden" name="_method" value="DELETE"> -->
+                                                <form action="/books/delete/<%= book.id %>?_method=DELETE"
+                                                    method="POST">
                                                     <button type="submit" class="delete-button">Delete</button>
                                                 </form>
                                             </td>

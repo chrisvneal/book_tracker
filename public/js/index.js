@@ -38,15 +38,15 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 
 	// Edit button functionality
-	document.querySelectorAll(".edit-button").forEach((button) => {
-		button.addEventListener("click", function (e) {
-			e.preventDefault();
-			e.stopPropagation(); // Prevent triggering the book click event
-			let reviewId = this.closest("tr").getAttribute("data-id");
+	// document.querySelectorAll(".edit-button").forEach((button) => {
+	// 	button.addEventListener("click", function (e) {
+	// 		e.preventDefault();
+	// 		e.stopPropagation(); // Prevent triggering the book click event
+	// 		let reviewId = this.closest("tr").getAttribute("data-id");
 
-			window.location.href = `/books/edit/${reviewId}`;
-		});
-	});
+	// 		window.location.href = `/books/edit/${reviewId}`;
+	// 	});
+	// });
 });
 
 let hiddenInput = document.querySelector("#searched");

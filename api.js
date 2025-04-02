@@ -163,7 +163,7 @@ app.post("/api/submit-review", async (req, res) => {
 	}
 });
 
-app.get("/api/review/:id", async (req, res) => {
+app.get("/api/book/:id", async (req, res) => {
 	const { id } = req.params;
 
 	let query = {

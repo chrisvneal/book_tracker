@@ -167,6 +167,10 @@ header {
   padding-top: 1em;
 }
 
+.owned-books form {
+  display: inline;
+}
+
 .owned-books h2 {
   font-size: 1.5em;
   margin-bottom: 0.5em;

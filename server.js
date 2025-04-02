@@ -16,7 +16,7 @@ app.use(methodOverride("_method")); // helps override form methods
 const MAIN_PORT = process.env.MAIN_PORT || 3000;
 const API_URL = process.env.API_URL || "http://localhost:4000";
 
-// Render main page
+// Render "main" page
 app.get("/", async (req, res) => {
 	// Retrieve book data from API, then...
 	const ownedBooks = await axios.get(`${API_URL}/api/reviews`);
@@ -25,14 +25,14 @@ app.get("/", async (req, res) => {
 	res.render("index.ejs", { ownedBooks: ownedBooks.data });
 });
 
-// Render book edit page
+// Render "book edit" page
 app.get("/books/edit/:id", async (req, res) => {
 	// Get the id of the book to edit from the URL
 	const { id } = req.params;
 
 	// Retrieve book data from API using the id
 	try {
-		const book = await axios.get(`${API_URL}/api/review/${id}`);
+		const book = await axios.get(`${API_URL}/api/book/${id}`);
 
 		// Store the book data in a variable
 		const bookData = book.data;
