@@ -82,14 +82,6 @@ h1 {
   margin-right: 1rem;
 }
 
-.ml-l {
-  margin-left: 0.25em;
-}
-
-.ml-2 {
-  margin-left: 0.5rem;
-}
-
 body {
   font-family: Inter, sans-serif;
   color: #505057;
@@ -111,7 +103,7 @@ button {
   padding-top: 2em;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 0.5em;
+  gap: 1.5em;
 }
 
 header {
@@ -122,7 +114,7 @@ header {
 .search-form {
   grid-column: 1/-1;
   grid-row: 2;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 .search-form input, .search-form button {
   height: 40px;
@@ -185,6 +177,7 @@ header {
   grid-column: 1/-1;
   grid-row: 4;
   border-top: 1px solid #d3d3d3;
+  padding-top: 1em;
 }
 
 .owned-books form {
@@ -193,12 +186,13 @@ header {
 
 .owned-books h2 {
   font-size: 1.5em;
-  margin: 0.5em 0;
+  margin-bottom: 0.5em;
 }
 
 .owned-books table {
   width: 100%;
   border-collapse: collapse;
+  margin: 1em 0;
   font-size: 1em;
   font-family: Arial, sans-serif;
 }
@@ -249,6 +243,7 @@ header {
 .owned-books form button {
   border: 1px solid #d3d3d3;
   background-color: #f5f5f5;
+  padding: 0.2em 0.5em;
   transition: all 0.2s ease-in-out;
   color: #333;
   border-radius: 3px;
@@ -261,9 +256,9 @@ header {
 }
 
 .owned-books form .delete-button:hover {
-  background-color: #e35f6c; /* Bootstrap red */
+  background-color: #e9818c; /* Bootstrap red */
   color: white;
-  border-color: #e15664;
+  border-color: #e56c78;
 }
 
 td.book-title {
@@ -281,8 +276,11 @@ td.book-title {
   height: 100px;
   padding: 10px;
 }
+.review-edit-form button {
+  padding: 0.2em;
+}
 .review-edit-form .review-edit-form__title {
-  color: #409cff;
+  color: #3399ff;
 }
 
 /*# sourceMappingURL=styles.css.map */
