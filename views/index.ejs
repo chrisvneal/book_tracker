@@ -92,7 +92,7 @@
                             <p class="owned-books-count">You have <span class="owned-books-count__number">
                                     <%= ownedBooks.length %>
                                 </span>
-                                <%= ownedBooks.length==1 && "book" : "books" %> in your collection.
+                                <%= ownedBooks.length==1 ? "book" : "books" %> in your collection.
                             </p>
                             <table>
                                 <thead>
