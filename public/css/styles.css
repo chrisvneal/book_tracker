@@ -191,6 +191,10 @@ header {
   display: inline;
 }
 
+.no-books {
+  margin: 0.5em 0;
+}
+
 .owned-books h2 {
   font-size: 1.5em;
   margin: 0.5em 0;
