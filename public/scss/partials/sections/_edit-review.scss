@@ -13,12 +13,10 @@
         padding: 10px;
     }
 
-    button {
-        padding: 0.2em;
-
-    }
+  
 
     .review-edit-form__title {
-        color: lighten(#007FFF, 10%);
+        color: $btn-blue-light;
+        // color: lighten(#007FFF, 10%);
     }
 }

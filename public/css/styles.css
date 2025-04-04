@@ -101,6 +101,7 @@ ul {
 
 button {
   cursor: pointer;
+  padding: 0.2em 0.5em;
 }
 
 /********** Sections **********/
