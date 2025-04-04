@@ -186,13 +186,17 @@ header {
   grid-row: 4;
   border-top: 1px solid #d3d3d3;
 }
+.owned-books p {
+  margin: 1em 0;
+}
 
 .owned-books form {
   display: inline;
 }
 
-.no-books {
-  margin: 0.5em 0;
+.owned-books-count__number {
+  font-weight: bold;
+  color: #505057;
 }
 
 .owned-books h2 {

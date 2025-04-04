@@ -89,6 +89,11 @@
                     <div class="owned-books">
                         <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
                             <h2>Owned Books</h2>
+                            <p class="owned-books-count">You have <span class="owned-books-count__number">
+                                    <%= ownedBooks.length %>
+                                </span>
+                                <% ownedBooks.length==1 ? "book" : "books" %> in your collection.
+                            </p>
                             <table>
                                 <thead>
                                     <tr>

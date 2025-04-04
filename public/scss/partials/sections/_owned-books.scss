@@ -2,6 +2,11 @@
     grid-column: 1 / -1;
     grid-row: 4;
     border-top: 1px solid #d3d3d3;
+
+    p {
+        margin: 1em 0;
+    }
+    
 }
 
 .owned-books form {
@@ -10,9 +15,11 @@
     
 }
 
-.no-books {
-    margin: 0.5em 0;
+.owned-books-count__number {
+    font-weight: bold;
+    color: $text-color;
 }
+
 
 .owned-books h2 {
     font-size: 1.5em;
