@@ -89,66 +89,73 @@
                     <div class="owned-books">
                         <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
                             <h2>Owned Books</h2>
-                            <div class="filter-options">
-                                <ul>
-                                    <li><a data-filter-option="author" href="/">Order by Author</a></li>
-                                    <li><a data-filter-option="title" href="/">Order by Title</a></li>
-                                    <li><a data-filter-option="year" href="/">Order by Year</a></li>
-                                </ul>
-                            </div>
                             <p class="owned-books-count">You have <span class="owned-books-count__number">
                                     <%= ownedBooks.length %>
                                 </span>
                                 <%= ownedBooks.length==1 ? "book" : "books" %> in your collection.
                             </p>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Author</th>
-                                        <th>ISBN</th>
-                                        <th>Published Year</th>
-                                        <th>Review</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% ownedBooks.forEach(book=> { %>
-                                        <tr data-id="<%= book.id %>" data-title="<%= book.title %>">
-                                            <td class="book-title">
-                                                <%= book.title %>
-                                            </td>
-                                            <td class="book-author">
-                                                <%= book.author %>
-                                            </td>
-                                            <td class="book-isbn">
-                                                <%= book.isbn || "Not available." %>
-                                            </td>
-                                            <td class="book-published-date">
-                                                <%= book.published_date || "Not available." %>
-                                            </td>
-                                            <td class="book-review">
-                                                <%= book.review || "" %>
-                                            </td>
-                                            <td>
-                                                <!-- Edit Button -->
-                                                <form action="/books/edit/<%= book.id %>" method="GET">
-                                                    <button type="submit" class="edit-button ml-2">Edit Review</button>
-                                                </form>
+                            <div class="owned-books__table-section">
+                                <div class="filter-options">
+                                    <ul>
+                                        <li><a data-filter-option="title" href="/">Order by Title</a></li>
 
-                                                <!-- Delete Button -->
-                                                <form action="/books/delete/<%= book.id %>?_method=DELETE"
-                                                    method="POST">
-                                                    <button type="submit" class="delete-button">Delete</button>
-                                                </form>
-                                            </td>
+                                        <li><a data-filter-option="author" href="/">Order by Author</a></li>
+                                        <li><a data-filter-option="year" href="/">Order by Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Author</th>
+                                            <th>Published Year</th>
+                                            <th>ISBN</th>
+
+                                            <th>Review</th>
+                                            <th></th>
                                         </tr>
-                                        <% }) %>
-                                </tbody>
-                            </table>
-                            <% } else { %>
-                                <p class="no-books">No owned books available.</p>
-                                <% } %>
+                                    </thead>
+                                    <tbody>
+                                        <% ownedBooks.forEach(book=> { %>
+                                            <tr data-id="<%= book.id %>" data-title="<%= book.title %>">
+                                                <td class="book-title">
+                                                    <%= book.title %>
+                                                </td>
+                                                <td class="book-author">
+                                                    <%= book.author %>
+                                                </td>
+                                                <td class="book-published-date">
+                                                    <%= book.published_date || "Not available." %>
+                                                </td>
+                                                <td class="book-isbn">
+                                                    <%= book.isbn || "Not available." %>
+                                                </td>
+
+                                                <td class="book-review">
+                                                    <%= book.review || "" %>
+                                                </td>
+                                                <td>
+                                                    <!-- Edit Button -->
+                                                    <form action="/books/edit/<%= book.id %>" method="GET">
+                                                        <button type="submit" class="edit-button ml-2">Edit
+                                                            Review</button>
+                                                    </form>
+
+                                                    <!-- Delete Button -->
+                                                    <form action="/books/delete/<%= book.id %>?_method=DELETE"
+                                                        method="POST">
+                                                        <button type="submit" class="delete-button">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            <% }) %>
+                                    </tbody>
+                                </table>
+                                <% } else { %>
+                                    <p class="no-books">No owned books available.</p>
+                                    <% } %>
+                            </div>
                     </div>
 
 

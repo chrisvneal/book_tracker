@@ -190,6 +190,22 @@ header {
   margin: 1em 0;
 }
 
+.filter-options {
+  margin: 1em 0;
+}
+.filter-options ul {
+  list-style: none;
+}
+.filter-options ul li {
+  display: inline-block;
+  margin-right: 1em;
+}
+.filter-options ul li a {
+  text-decoration: none;
+  color: #0d82ff;
+  font-weight: thin;
+}
+
 .owned-books form {
   display: inline;
 }
@@ -204,9 +220,14 @@ header {
   margin: 0.5em 0;
 }
 
+.owned-books__table-section {
+  margin: 2em 0;
+}
+
 .owned-books table {
   width: 100%;
   border-collapse: collapse;
+  margin: 1em 0 2em;
   font-size: 1em;
   font-family: Arial, sans-serif;
 }
