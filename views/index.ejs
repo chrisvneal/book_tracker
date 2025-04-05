@@ -89,6 +89,14 @@
                     <div class="owned-books">
                         <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
                             <h2>Owned Books</h2>
+                            <div class="filter-options">
+                                <ul>
+                                    <li><a href="/">Order by Author</a></li>
+                                    <li><a href="/">Order by Title</a></li>
+                                    <li><a href="/">Order by Year</a></li>
+                                </ul>
+
+                            </div>
                             <p class="owned-books-count">You have <span class="owned-books-count__number">
                                     <%= ownedBooks.length %>
                                 </span>
