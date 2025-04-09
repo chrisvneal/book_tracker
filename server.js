@@ -18,32 +18,37 @@ const API_URL = process.env.API_URL || "http://localhost:4000";
 
 // Render "main" page
 app.get("/", async (req, res) => {
-	// Retrieve book data from API, then...
-	const ownedBooks = await axios.get(`${API_URL}/api/books`);
+	try {
+		// Retrieve book data from API, then...
+		const ownedBooks = await axios.get(`${API_URL}/api/books`);
 
-	let books = ownedBooks.data;
+		let books = ownedBooks.data;
 
-	// Check for a sort query parameter
-	const sortOption = req.query.sort;
-	if (sortOption) {
-		if (sortOption === "title") {
-			books.sort((a, b) => a.title.localeCompare(b.title));
-		} else if (sortOption === "author") {
-			books.sort((a, b) => a.author.localeCompare(b.author));
-		} else if (sortOption === "year") {
-			// We'll assume published_date holds the year.
-			// If it's not a number, make sure to parseInt it.
-			books.sort((a, b) => {
-				// Provide a default value if a year is missing
-				const aYear = parseInt(a.published_date) || 0;
-				const bYear = parseInt(b.published_date) || 0;
-				return aYear - bYear;
-			});
+		// Check for a sort query parameter
+		const sortOption = req.query.sort;
+		if (sortOption) {
+			if (sortOption === "title") {
+				books.sort((a, b) => a.title.localeCompare(b.title));
+			} else if (sortOption === "author") {
+				books.sort((a, b) => a.author.localeCompare(b.author));
+			} else if (sortOption === "year") {
+				// We'll assume published_date holds the year.
+				// If it's not a number, make sure to parseInt it.
+				books.sort((a, b) => {
+					// Provide a default value if a year is missing
+					const aYear = parseInt(a.published_date) || 0;
+					const bYear = parseInt(b.published_date) || 0;
+					return aYear - bYear;
+				});
+			}
 		}
-	}
 
-	// ...render main page, providing retrieved book data
-	res.render("index.ejs", { ownedBooks: books });
+		// ...render main page, providing retrieved book data
+		res.render("index.ejs", { ownedBooks: books });
+	} catch (error) {
+		console.error("Error retrieving book data:", error.message);
+		res.status(500).send("Error retrieving book data.");
+	}
 });
 
 // Render "edit book" page w/ selected book data
