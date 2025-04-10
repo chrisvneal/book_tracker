@@ -93,13 +93,16 @@ app.post("/search", async (req, res) => {
 
 // Post selected book and review to database
 app.post("/books", async (req, res) => {
+	// Get the book details and review from the request body
 	const { title, isbn, author, published_date, book_id, review } = req.body;
 
 	try {
+		// Pass the book details and review to the API to be saved in the database
 		await axios.post(`${API_URL}/api/submit-review`, { title, isbn, author, published_date, book_id, review });
 
 		res.redirect("/");
 	} catch (error) {
+		// If the error is a 204 (No Content) response, redirect to the main page
 		if (error.response) {
 			if (error.response.status === 204) {
 				return res.redirect("/");
@@ -110,6 +113,7 @@ app.post("/books", async (req, res) => {
 			console.error("Data:", error.response.data);
 		} else {
 			console.error(error.message);
+			res.status(500).json({ error: "An error occurred while submitting the review." });
 		}
 
 		res.redirect("/");
@@ -118,12 +122,15 @@ app.post("/books", async (req, res) => {
 
 // Route to handle the form submission for editing a review
 app.patch("/edit-review", async (req, res) => {
+	// Get the review and id details from the request body...
 	const { review, id } = req.body;
 
 	try {
+		// ...and pass them to the API to be update the review in the database.
 		await axios.patch(`${API_URL}/api/edit-review/${id}`, { review });
 		res.redirect("/");
 	} catch (error) {
+		// If there's an error passsing data, log it to the console and return a 500 error
 		console.log(error.message);
 		res.status(500).json({ error: "An error occurred while updating the review." });
 	}
