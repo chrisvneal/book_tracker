@@ -2,18 +2,62 @@
     grid-column: 1 / -1;
     grid-row: 4;
     border-top: 1px solid #d3d3d3;
-    padding-top: 1em;
+
+    p {
+        margin: 1em 0;
+    }
+    
 }
+
+.filter-options {
+    margin: 1em 0;
+
+    ul {
+        // outline: 1px solid red;
+        list-style: none;
+        // margin: 1em 0;
+    
+        li {
+            display: inline-block;
+            margin-right: 1em;
+            a {
+                text-decoration: none;
+                color: $btn-blue;
+                font-weight: thin;
+                // padding: 0.5em 1em;
+            }
+        }
+        
+    }
+}
+
+
+
+.owned-books form {
+    display: inline;
+
+    
+}
+
+.owned-books-count__number {
+    font-weight: bold;
+    color: $text-color;
+}
+
 
 .owned-books h2 {
     font-size: 1.5em;
-    margin-bottom: 0.5em;
+    margin: 0.5em 0;
+}
+
+.owned-books__table-section {
+    margin: 2em 0;
 }
 
 .owned-books table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1em 0;
+    margin: 1em 0 2em;
     font-size: 1em;
     font-family: Arial, sans-serif;
 }
@@ -29,13 +73,13 @@
     font-weight: bold;
 }
 
-.owned-books tr:nth-child(even) {
-    background-color: #fafafa;
+.owned-books td {
+    transition: all 0.1s ease-in;
 }
 
-// .owned-books tr:hover {
-//     background-color: #f0f0f0;
-// }
+.owned-books tr:hover td:not(:last-child) {
+    background-color: lighten($btn-blue-light, 35%);
+}
 
 .owned-books td {
     color: #333;
@@ -47,11 +91,8 @@
     color: #555;
 }
 
-.owned-books table th:last-child {
-    outline: 1px solid red;
+.owned-books table th:last-child {   
     border: none;
-    // width: min-content;
-    // width: 50%;
     width: 220px;
     visibility: hidden;
 }
@@ -59,31 +100,38 @@
 .owned-books table td:last-child {  
     border: none;
     text-align: right;
+    width: 210px;
+    display: flex;
+    justify-content: space-around;
 }
 
 
 
 .owned-books form button {   
-    width: 100px;
+    // width: 100px;
     border: 1px solid #d3d3d3;
     background-color: #f5f5f5;
-    padding: 0.2em;
     transition: all 0.2s ease-in-out;
     color: #333;
-    cursor: pointer;
+    border-radius: 3px;
 }
 
 
 
 .owned-books form .edit-button:hover {
-    background-color: #007bff; /* Bootstrap blue */
+    background-color: $btn-blue-light; /* Bootstrap blue */
     color: white;
-    border-color: #0069d9;
+    border-color: $btn-blue;
 }
 
 .owned-books form .delete-button:hover {
-    background-color: #dc3545; /* Bootstrap red */
+    background-color: $danger-red-light; /* Bootstrap red */
     color: white;
-    border-color: #c82333;
+    border-color: $danger-red;
+}
+
+td.book-title {
+    // background: red;
+    width: 400px;
 }
 

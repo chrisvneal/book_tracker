@@ -7,7 +7,7 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     // column-gap: 1.5em;
-    gap: 1.5em;
+    gap: .5em;
 }
 
 header {
@@ -19,7 +19,7 @@ header {
 .search-form {
     grid-column: 1 / -1;
     grid-row: 2;
-    margin-bottom: 1em;
+    margin-bottom: .5em;
 
     input, button {
         height: 40px;

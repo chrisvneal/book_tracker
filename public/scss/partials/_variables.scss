@@ -2,3 +2,9 @@
 $text-color: #505057;
 $text-color-light: lighten($text-color, 40%);
 $gray-light: #d3d3d3;
+
+$btn-blue: lighten(#0069d9, 10%);
+$btn-blue-light: lighten($btn-blue, 10%);
+
+$danger-red: lighten(#c82333, 15%);
+$danger-red-light: lighten($danger-red, 2%);
