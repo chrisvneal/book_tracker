@@ -13,27 +13,27 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method")); // helps override form methods
 
+// Set variables for server port and API URL from ".env" file
 const MAIN_PORT = process.env.MAIN_PORT || 3000;
 const API_URL = process.env.API_URL || "http://localhost:4000";
 
 // Render "main" page
 app.get("/", async (req, res) => {
 	try {
-		// Retrieve book data from API, then...
+		// Retrieve book data from API, ...
 		const ownedBooks = await axios.get(`${API_URL}/api/books`);
-
 		let books = ownedBooks.data;
 
-		// Check for a sort query parameter
+		// ...check for a sort query parameter in the URL.
 		const sortOption = req.query.sort;
+
+		// Based on search query (if provided), sort the book data.
 		if (sortOption) {
 			if (sortOption === "title") {
 				books.sort((a, b) => a.title.localeCompare(b.title));
 			} else if (sortOption === "author") {
 				books.sort((a, b) => a.author.localeCompare(b.author));
 			} else if (sortOption === "year") {
-				// We'll assume published_date holds the year.
-				// If it's not a number, make sure to parseInt it.
 				books.sort((a, b) => {
 					// Provide a default value if a year is missing
 					const aYear = parseInt(a.published_date) || 0;
@@ -43,7 +43,7 @@ app.get("/", async (req, res) => {
 			}
 		}
 
-		// ...render main page, providing retrieved book data
+		// Render main page providing retrieved book data, sorted via query parameter
 		res.render("index.ejs", { ownedBooks: books });
 	} catch (error) {
 		console.error("Error retrieving book data:", error.message);
