@@ -61,8 +61,6 @@ Book Review Tracker is a full-stack web application that allows users to search 
    OPENLIBRARY_URL='https://openlibrary.org/search.json'
    ```
 
----
-
 ## Database Setup
 
 1. **Install PostgreSQL:**
@@ -101,8 +99,6 @@ Book Review Tracker is a full-stack web application that allows users to search 
    );
    ```
 
----
-
 ## Running the App
 
 To start the development environment:
@@ -125,8 +121,6 @@ http://localhost:3000
 ```
 
 > ⚠️ For production, replace `nodemon` with `node` and precompile SCSS beforehand.
-
----
 
 ## API Routes
 
@@ -152,8 +146,6 @@ http://localhost:3000
 
 These endpoints power all backend features used by the frontend.
 
----
-
 ## Project Structure
 
 ```
@@ -178,6 +170,6 @@ book_review_tracker/
 
 ---
 
-## Author
+### Author
 
 Created by [Chris Neal](https://github.com/chrisvneal)
