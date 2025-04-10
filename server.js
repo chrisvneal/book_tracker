@@ -68,7 +68,7 @@ app.get("/books/edit/:id", async (req, res) => {
 	}
 });
 
-// Retrieve book data from API
+// Retrieve book data from API using a search query
 app.post("/search", async (req, res) => {
 	const { query } = req.body;
 
@@ -76,13 +76,15 @@ app.post("/search", async (req, res) => {
 	const isISBN = (/^[\d-]+$/.test(query) && query.replace(/-/g, "").length === 10) || query.replace(/-/g, "").length === 13;
 
 	try {
+		// Retrieve book data from API, including owned books
+
+		// Owned books from database - to continue displaying them on the main page
 		const ownedBooks = await axios.get(`${API_URL}/api/books`);
 
-		// retrieve results from API
-
+		// retrieve results from API, to be displayed on the main page
 		const results = await axios.post(`${API_URL}/api/search`, isISBN ? { isbn: query } : { query });
 
-		// Render main page with retrieved book data
+		// Render main page with retrieved book data, both owned and search results
 		res.status(200).render("index.ejs", { books: results.data, ownedBooks: ownedBooks.data });
 	} catch (error) {
 		res.status(500).render("index.ejs", { books: [], error: "An error occurred while searching for the book.", ownedBooks: ownedBooks.data });
