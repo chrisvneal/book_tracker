@@ -106,10 +106,8 @@ app.get("/api/book/:id", async (req, res) => {
 		if (results.rows.length > 0) {
 			const { id, isbn, title, author, published_date, review } = results.rows[0];
 			return res.status(200).json({ id, isbn, title, author, published_date, review });
-		} else {
-			// ... otherwise, return a 404 error
-			return res.status(404).json({ message: "Book not found." });
 		}
+		return res.status(404).json({ message: "Book not found." });
 	} catch (error) {
 		// database error
 		console.error("Error fetching review:", error);
@@ -218,6 +216,7 @@ app.patch("/api/edit-review/:id", async (req, res) => {
 		await db.query(updateReview.text, updateReview.values);
 		res.status(200).json({ message: "Review updated successfully." });
 	} catch (error) {
+		// database error
 		console.error("Error editing review:", error);
 		res.status(500).json({ error: "An error occurred while editing the review." });
 	}
@@ -245,6 +244,7 @@ app.delete("/api/delete/:id", async (req, res) => {
 
 		res.status(200).json({ message: "Deleted successfully" });
 	} catch (error) {
+		// database error
 		await db.query("ROLLBACK"); // Rollback transaction in case of error
 		console.error("Error deleting book and reviews:", error.message);
 		return res.status(500).send("Error deleting book and reviews.");
