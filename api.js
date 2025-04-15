@@ -193,6 +193,7 @@ app.post("/api/submit-review", async (req, res) => {
 			return res.status(201).json({ message: "Book added successfully" });
 		} catch (error) {
 			// database error
+			await db.query("ROLLBACK"); // Rollback transaction in case of error
 			console.error(error.message);
 			return res.status(500).json({ message: "Database error" });
 		}
