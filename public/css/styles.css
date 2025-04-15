@@ -181,6 +181,14 @@ header {
   padding: 0.5em;
 }
 
+footer {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 1em;
+  grid-column: 1/-1;
+  padding: 0.5em;
+}
+
 .owned-books {
   grid-column: 1/-1;
   grid-row: 4;
