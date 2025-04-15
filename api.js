@@ -17,7 +17,7 @@ const db = new pg.Client({
 	port: process.env.DB_PORT,
 });
 
-db.connect();
+db.connect().catch((error) => console.error("DB connection error:", error.message));
 
 // Function to fetch ISBN based on book title
 async function getTitleISBN(title) {
