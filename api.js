@@ -247,7 +247,7 @@ app.delete("/api/delete/:id", async (req, res) => {
 		// database error
 		await db.query("ROLLBACK"); // Rollback transaction in case of error
 		console.error("Error deleting book and reviews:", error.message);
-		return res.status(500).send("Error deleting book and reviews.");
+		return res.status(500).json({ error: "Error deleting book and reviews." });
 	}
 });
 
