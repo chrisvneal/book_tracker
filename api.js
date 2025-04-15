@@ -115,12 +115,12 @@ app.post("/api/search", async (req, res) => {
 				continue;
 			}
 
-			// Get ISBN from Google Books API by title
-			const googleISBN = (await getTitleISBN(bookData[i].title)) || "Unknown ISBN";
-
 			if (!bookData[i].cover_i) {
 				continue;
 			}
+
+			// Get ISBN from Google Books API by title
+			const googleISBN = (await getTitleISBN(bookData[i].title)) || "Unknown ISBN";
 
 			// create new object from OpenLibrary API data
 			const { title, author_name, first_publish_year, cover_i } = bookData[i];
