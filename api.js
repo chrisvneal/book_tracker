@@ -35,6 +35,23 @@ async function getTitleISBN(title) {
 	}
 }
 
+function buildOpenLibraryURL(isbn, query, limit) {
+	let openLibraryURL = process.env.OPENLIBRARY_URL;
+	let title = query;
+	const numOfBooks = limit || 4;
+	const bookLimit = `&limit=${numOfBooks}`;
+
+	// if isbn is not defined, the request is for title...
+	if (isbn == undefined) {
+		openLibraryURL += `?q=${encodeURIComponent(title)}${bookLimit}`;
+	} else if (title == undefined) {
+		// ... otherwise, the request is for isbn
+		openLibraryURL += `?isbn=${isbn}${bookLimit}`;
+	}
+
+	return openLibraryURL;
+}
+
 // Fetch all books and reviews from database
 app.get("/api/books", async (req, res) => {
 	const query = {
@@ -84,22 +101,9 @@ app.get("/api/book/:id", async (req, res) => {
 app.post("/api/search", async (req, res) => {
 	const { isbn, query, limit } = req.body;
 
-	let openLibraryURL = process.env.OPENLIBRARY_URL;
-	let title = query;
-	const numOfBooks = limit || 4;
-	const bookLimit = `&limit=${numOfBooks}`;
-
-	// if isbn is not defined, the request is for title...
-	if (isbn == undefined) {
-		openLibraryURL += `?q=${encodeURIComponent(title)}${bookLimit}`;
-	} else if (title == undefined) {
-		// ... otherwise, the request is for isbn
-		openLibraryURL += `?isbn=${isbn}${bookLimit}`;
-	}
-
 	// Fetch book data from OpenLibrary and parse it
 	try {
-		const result = await axios.get(openLibraryURL);
+		const result = await axios.get(buildOpenLibraryURL(isbn, query, limit));
 		const bookData = result.data.docs;
 
 		// Initialize array to store search results from API
