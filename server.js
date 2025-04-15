@@ -75,11 +75,13 @@ app.post("/search", async (req, res) => {
 	// Check if the query is an ISBN
 	const isISBN = (/^[\d-]+$/.test(query) && query.replace(/-/g, "").length === 10) || query.replace(/-/g, "").length === 13;
 
+	let ownedBooks = { data: [] };
+
 	try {
 		// Retrieve book data from API, including owned books
 
 		// Owned books from database - to continue displaying them on the main page
-		const ownedBooks = await axios.get(`${API_URL}/api/books`);
+		ownedBooks = await axios.get(`${API_URL}/api/books`);
 
 		// retrieve results from API, to be displayed on the main page
 		const results = await axios.post(`${API_URL}/api/search`, isISBN ? { isbn: query } : { query });
@@ -87,7 +89,8 @@ app.post("/search", async (req, res) => {
 		// Render main page with retrieved book data, both owned and search results
 		res.status(200).render("index.ejs", { books: results.data, ownedBooks: ownedBooks.data });
 	} catch (error) {
-		res.status(500).render("index.ejs", { books: [], error: "An error occurred while searching for the book.", ownedBooks: ownedBooks.data });
+		console.error("Error retrieving book data:", error.message);
+		res.status(500).render("index.ejs", { books: [], error: "An error occurred while searching for the book.", ownedBooks: ownedBooks.data || [] });
 	}
 });
 
@@ -103,20 +106,16 @@ app.post("/books", async (req, res) => {
 		res.redirect("/");
 	} catch (error) {
 		// If the error is a 204 (No Content) response, redirect to the main page
-		if (error.response) {
-			if (error.response.status === 204) {
-				return res.redirect("/");
-			}
 
+		if (error.response && error.response.status !== 204) {
 			console.error("Axios error:");
 			console.error("Status:", error.response.status);
 			console.error("Data:", error.response.data);
-		} else {
+		} else if (!error.resposne) {
 			console.error(error.message);
-			res.status(500).json({ error: "An error occurred while submitting the review." });
 		}
 
-		res.redirect("/");
+		return res.redirect("/");
 	}
 });
 

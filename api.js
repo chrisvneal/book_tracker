@@ -17,7 +17,7 @@ const db = new pg.Client({
 	port: process.env.DB_PORT,
 });
 
-db.connect();
+db.connect().catch((error) => console.error("DB connection error:", error.message));
 
 // Function to fetch ISBN based on book title
 async function getTitleISBN(title) {
@@ -33,6 +33,43 @@ async function getTitleISBN(title) {
 		console.error("Error fetching ISBN:", error.message);
 		return null;
 	}
+}
+
+async function formatBookData(bookData) {
+	// Get ISBN from Google Books API by title
+	const googleISBN = (await getTitleISBN(bookData.title)) || "Unknown ISBN";
+
+	// create new object from OpenLibrary API data
+	const { title, author_name, first_publish_year, cover_i } = bookData;
+	const book = {
+		title: title,
+		author: author_name?.[0] || "Unknown",
+		isbn: googleISBN,
+		published_date: first_publish_year || "Unknown",
+		cover_id: cover_i,
+		cover_url_small: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-S.jpg` : null,
+		cover_url_medium: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-M.jpg` : null,
+		cover_url_large: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-L.jpg` : null,
+	};
+
+	return book;
+}
+
+function buildOpenLibraryURL(isbn, query, limit) {
+	let openLibraryURL = process.env.OPENLIBRARY_URL;
+	let title = query;
+	const numOfBooks = limit || 4;
+	const bookLimit = `&limit=${numOfBooks}`;
+
+	// if isbn is not defined, the request is for title...
+	if (isbn == undefined) {
+		openLibraryURL += `?q=${encodeURIComponent(title)}${bookLimit}`;
+	} else if (title == undefined) {
+		// ... otherwise, the request is for isbn
+		openLibraryURL += `?isbn=${isbn}${bookLimit}`;
+	}
+
+	return openLibraryURL;
 }
 
 // Fetch all books and reviews from database
@@ -69,10 +106,8 @@ app.get("/api/book/:id", async (req, res) => {
 		if (results.rows.length > 0) {
 			const { id, isbn, title, author, published_date, review } = results.rows[0];
 			return res.status(200).json({ id, isbn, title, author, published_date, review });
-		} else {
-			// ... otherwise, return a 404 error
-			return res.status(404).json({ message: "Book not found." });
 		}
+		return res.status(404).json({ message: "Book not found." });
 	} catch (error) {
 		// database error
 		console.error("Error fetching review:", error);
@@ -84,52 +119,24 @@ app.get("/api/book/:id", async (req, res) => {
 app.post("/api/search", async (req, res) => {
 	const { isbn, query, limit } = req.body;
 
-	let openLibraryURL = process.env.OPENLIBRARY_URL;
-	let title = query;
-	const numOfBooks = limit || 4;
-	const bookLimit = `&limit=${numOfBooks}`;
-
-	// if isbn is not defined, the request is for title...
-	if (isbn == undefined) {
-		openLibraryURL += `?q=${encodeURIComponent(title)}${bookLimit}`;
-	} else if (title == undefined) {
-		// ... otherwise, the request is for isbn
-		openLibraryURL += `?isbn=${isbn}${bookLimit}`;
-	}
-
 	// Fetch book data from OpenLibrary and parse it
 	try {
+		// Build OpenLibrary URL, get book data
+		let openLibraryURL = buildOpenLibraryURL(isbn, query, limit);
 		const result = await axios.get(openLibraryURL);
+
 		const bookData = result.data.docs;
 
-		// Initialize array to store search results from API
+		// Initialize array to store search results from OpenLibrary API
 		let searchResults = [];
 
-		// Loop through results, insert into books array
+		// Loop through search results, insert into books array
 		for (let i = 0; i < bookData.length; i++) {
-			if (!bookData[i]) {
+			if (!bookData[i]?.cover_i) {
 				continue;
 			}
 
-			// Get ISBN from Google Books API by title
-			const googleISBN = (await getTitleISBN(bookData[i].title)) || "Unknown ISBN";
-
-			if (!bookData[i].cover_i) {
-				continue;
-			}
-
-			// create new object from OpenLibrary API data
-			const { title, author_name, first_publish_year, cover_i } = bookData[i];
-			const book = {
-				title: title,
-				author: author_name?.[0] || "Unknown",
-				isbn: isbn || googleISBN,
-				published_date: first_publish_year || "Unknown",
-				cover_id: cover_i,
-				cover_url_small: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-S.jpg` : null,
-				cover_url_medium: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-M.jpg` : null,
-				cover_url_large: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-L.jpg` : null,
-			};
+			let book = await formatBookData(bookData[i]);
 
 			// store each book/result in searchResults array
 			searchResults.push(book);
@@ -184,6 +191,7 @@ app.post("/api/submit-review", async (req, res) => {
 			return res.status(201).json({ message: "Book added successfully" });
 		} catch (error) {
 			// database error
+			await db.query("ROLLBACK"); // Rollback transaction in case of error
 			console.error(error.message);
 			return res.status(500).json({ message: "Database error" });
 		}
@@ -208,6 +216,7 @@ app.patch("/api/edit-review/:id", async (req, res) => {
 		await db.query(updateReview.text, updateReview.values);
 		res.status(200).json({ message: "Review updated successfully." });
 	} catch (error) {
+		// database error
 		console.error("Error editing review:", error);
 		res.status(500).json({ error: "An error occurred while editing the review." });
 	}
@@ -235,9 +244,10 @@ app.delete("/api/delete/:id", async (req, res) => {
 
 		res.status(200).json({ message: "Deleted successfully" });
 	} catch (error) {
+		// database error
 		await db.query("ROLLBACK"); // Rollback transaction in case of error
 		console.error("Error deleting book and reviews:", error.message);
-		return res.status(500).send("Error deleting book and reviews.");
+		return res.status(500).json({ error: "Error deleting book and reviews." });
 	}
 });
 
