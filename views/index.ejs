@@ -4,6 +4,7 @@
             <h1>Book Review Tracker</h1>
         </header>
 
+        <!-- Form to search for book by title or ISBN -->
         <form id="search-form" class="search-form" action="/search" method="post">
             <input id="query" type="text" name="query" placeholder="Search by Title or ISBN..." required>
             <input type="hidden" id="profile_id" value="1" name="profile_id">
@@ -11,6 +12,7 @@
         </form>
 
 
+        <!-- If books are returned, display the results -->
         <% if (locals.books && locals.books.length) { %>
             <div class="book-search-results">
                 <h2>Results</h2>
@@ -57,7 +59,7 @@
 
 
 
-
+                    <!-- Displays review section once the user selects a book to review -->
                     <div class="review-section hidden">
                         <form class="review-form" action="/books" method="post">
                             <h2>Write a review</h2>
@@ -85,7 +87,7 @@
                         </form>
                     </div>
 
-
+                    <!-- Owned books section -->
                     <div class="owned-books">
                         <% if (locals.ownedBooks && locals.ownedBooks.length) { %>
                             <h2>Owned Books</h2>
@@ -103,6 +105,9 @@
 
                                     </ul>
                                 </div>
+
+
+                                <!-- Table to display owned books -->
 
                                 <table>
                                     <thead>

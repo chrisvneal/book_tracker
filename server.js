@@ -78,18 +78,15 @@ app.post("/search", async (req, res) => {
 	let ownedBooks = { data: [] };
 
 	try {
-		// Retrieve book data from API, including owned books
-
-		// Owned books from database - to continue displaying them on the main page
+		// Retrieve owned books from database
 		ownedBooks = await axios.get(`${API_URL}/api/books`);
 
-		// retrieve results from API, to be displayed on the main page
+		// retrieve results from OpenLibrary API, to be displayed on the main page
 		const results = await axios.post(`${API_URL}/api/search`, isISBN ? { isbn: query } : { query });
 
 		// Render main page with retrieved book data, both owned and search results
 		res.status(200).render("index.ejs", { books: results.data, ownedBooks: ownedBooks.data });
 	} catch (error) {
-		console.error("Error retrieving book data:", error.message);
 		res.status(500).render("index.ejs", { books: [], error: "An error occurred while searching for the book.", ownedBooks: ownedBooks.data || [] });
 	}
 });
@@ -105,13 +102,13 @@ app.post("/books", async (req, res) => {
 
 		res.redirect("/");
 	} catch (error) {
-		// If the error is a 204 (No Content) response, redirect to the main page
+		// If the error is not a 204, log it to the console and redirect to the main page
 
 		if (error.response && error.response.status !== 204) {
 			console.error("Axios error:");
 			console.error("Status:", error.response.status);
 			console.error("Data:", error.response.data);
-		} else if (!error.resposne) {
+		} else if (!error.response) {
 			console.error(error.message);
 		}
 
