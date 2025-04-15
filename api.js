@@ -35,6 +35,26 @@ async function getTitleISBN(title) {
 	}
 }
 
+async function formatBookData(bookData) {
+	// Get ISBN from Google Books API by title
+	const googleISBN = (await getTitleISBN(bookData.title)) || "Unknown ISBN";
+
+	// create new object from OpenLibrary API data
+	const { title, author_name, first_publish_year, cover_i } = bookData;
+	const book = {
+		title: title,
+		author: author_name?.[0] || "Unknown",
+		isbn: googleISBN,
+		published_date: first_publish_year || "Unknown",
+		cover_id: cover_i,
+		cover_url_small: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-S.jpg` : null,
+		cover_url_medium: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-M.jpg` : null,
+		cover_url_large: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-L.jpg` : null,
+	};
+
+	return book;
+}
+
 function buildOpenLibraryURL(isbn, query, limit) {
 	let openLibraryURL = process.env.OPENLIBRARY_URL;
 	let title = query;
@@ -119,24 +139,8 @@ app.post("/api/search", async (req, res) => {
 				continue;
 			}
 
-			// Get ISBN from Google Books API by title
-			const googleISBN = (await getTitleISBN(bookData[i].title)) || "Unknown ISBN";
-
-			// create new object from OpenLibrary API data
-			const { title, author_name, first_publish_year, cover_i } = bookData[i];
-			const book = {
-				title: title,
-				author: author_name?.[0] || "Unknown",
-				isbn: isbn || googleISBN,
-				published_date: first_publish_year || "Unknown",
-				cover_id: cover_i,
-				cover_url_small: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-S.jpg` : null,
-				cover_url_medium: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-M.jpg` : null,
-				cover_url_large: cover_i ? `http://covers.openlibrary.org/b/id/${cover_i}-L.jpg` : null,
-			};
-
 			// store each book/result in searchResults array
-			searchResults.push(book);
+			searchResults.push(await formatBookData(bookData[i]));
 		}
 
 		// send search results as JSON to server
