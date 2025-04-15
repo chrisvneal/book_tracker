@@ -123,23 +123,21 @@ app.post("/api/search", async (req, res) => {
 
 	// Fetch book data from OpenLibrary and parse it
 	try {
+		// Build OpenLibrary URL, get book data
 		let openLibraryURL = buildOpenLibraryURL(isbn, query, limit);
 		const result = await axios.get(openLibraryURL);
 
 		const bookData = result.data.docs;
 
-		// Initialize array to store search results from API
+		// Initialize array to store search results from OpenLibrary API
 		let searchResults = [];
 
-		// Loop through results, insert into books array
+		// Loop through search results, insert into books array
 		for (let i = 0; i < bookData.length; i++) {
-			if (!bookData[i]) {
+			if (!bookData[i]?.cover_i) {
 				continue;
 			}
 
-			if (!bookData[i].cover_i) {
-				continue;
-			}
 			let book = await formatBookData(bookData[i]);
 
 			// store each book/result in searchResults array
