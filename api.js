@@ -107,6 +107,8 @@ app.get("/api/book/:id", async (req, res) => {
 			const { id, isbn, title, author, published_date, review } = results.rows[0];
 			return res.status(200).json({ id, isbn, title, author, published_date, review });
 		}
+
+		// 404 here means the book was not found in the database
 		return res.status(404).json({ message: "Book not found." });
 	} catch (error) {
 		// database error
